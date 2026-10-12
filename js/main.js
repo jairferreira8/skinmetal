@@ -48,38 +48,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* Countdown to album launch */
   const RELEASE_DATE = new Date('2026-09-26T00:00:00-03:00').getTime();
-  document.querySelectorAll('[data-countdown]').forEach((el) => {
-    const dayEl = el.querySelector('[data-days]');
-    const hourEl = el.querySelector('[data-hours]');
-    const minEl = el.querySelector('[data-minutes]');
-    const secEl = el.querySelector('[data-seconds]');
-    const preLabel = document.querySelectorAll('[data-pre-release]');
-    const postLabel = document.querySelectorAll('[data-post-release]');
+  const countdownEls = document.querySelectorAll('[data-countdown]');
+  const preLabel = document.querySelectorAll('[data-pre-release]');
+  const postLabel = document.querySelectorAll('[data-post-release]');
 
-    const tick = () => {
-      const now = Date.now();
-      const diff = RELEASE_DATE - now;
+  const tick = () => {
+    const now = Date.now();
+    const diff = RELEASE_DATE - now;
 
-      if (diff <= 0) {
-        el.style.display = 'none';
-        preLabel.forEach((n) => (n.style.display = 'none'));
-        postLabel.forEach((n) => (n.style.display = ''));
-        return;
-      }
+    if (diff <= 0) {
+      countdownEls.forEach((el) => (el.style.display = 'none'));
+      preLabel.forEach((n) => (n.style.display = 'none'));
+      postLabel.forEach((n) => (n.style.display = ''));
+      return;
+    }
 
-      const days = Math.floor(diff / 86400000);
-      const hours = Math.floor((diff % 86400000) / 3600000);
-      const mins = Math.floor((diff % 3600000) / 60000);
-      const secs = Math.floor((diff % 60000) / 1000);
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
 
+    countdownEls.forEach((el) => {
+      const dayEl = el.querySelector('[data-days]');
+      const hourEl = el.querySelector('[data-hours]');
+      const minEl = el.querySelector('[data-minutes]');
+      const secEl = el.querySelector('[data-seconds]');
       if (dayEl) dayEl.textContent = String(days).padStart(2, '0');
       if (hourEl) hourEl.textContent = String(hours).padStart(2, '0');
       if (minEl) minEl.textContent = String(mins).padStart(2, '0');
       if (secEl) secEl.textContent = String(secs).padStart(2, '0');
-    };
-    tick();
-    setInterval(tick, 1000);
-  });
+    });
+  };
+  tick();
+  setInterval(tick, 1000);
 
   /* Scroll reveal */
   const revealEls = document.querySelectorAll('.reveal');

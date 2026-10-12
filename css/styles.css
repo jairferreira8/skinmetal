@@ -15,7 +15,7 @@
   --gold: #C9A227;
   --white: #F2F2F2;
 
-  --font-display: 'Metal Mania', 'Cinzel', serif;
+  --font-display: 'Metal Mania', 'Cinzel', 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
   --font-body: 'Space Grotesk', 'Montserrat', sans-serif;
 
   --gutter: 16px;
@@ -262,6 +262,7 @@ body::before {
   text-shadow: 0 0 40px rgba(176,0,0,0.55), 0 0 90px rgba(255,90,0,0.25);
   margin-bottom: 20px;
 }
+.hero h1 span { color: var(--fire-orange); }
 .hero-tagline {
   font-family: var(--font-body);
   font-weight: 700;
