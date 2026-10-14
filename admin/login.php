@@ -29,7 +29,7 @@ if (!empty($_SESSION['admin_logged_in'])) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Admin Login — SKINMETAL</title>
-<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet" href="admin.css?v=20261015a">
 </head>
 <body>
 <div class="login-wrap">
