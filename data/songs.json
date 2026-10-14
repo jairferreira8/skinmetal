@@ -1,0 +1,15 @@
+[
+  {"id": "forever", "title": "Forever", "type": "Single", "meta": "Single", "listen_url": "", "watch_url": "videos.html"},
+  {"id": "between-heaven-and-hell", "title": "Between Heaven and Hell", "type": "Album", "meta": "Album · 11 Songs", "listen_url": "https://open.spotify.com/intl-pt/album/1xvfpyOqfOQveY4NK9aieB?si=R9nW7_JESmKkc8mGEXyfrA", "watch_url": "videos.html"},
+  {"id": "skinmetal-ballads", "title": "SKINMETAL Ballads", "type": "Single", "meta": "Single · 3 Songs", "listen_url": "https://open.spotify.com/intl-pt/album/4HyvIDToiYzehL12XjXg9S?si=Qk5QvVMdQ2KHGtDbn2BbDQ", "watch_url": "videos.html"},
+  {"id": "live-in-sao-paulo", "title": "Live in São Paulo", "type": "Live Album", "meta": "Live Album", "listen_url": "", "watch_url": "videos.html"},
+  {"id": "pandoras-box", "title": "Pandora's Box", "type": "Single", "meta": "Single", "listen_url": "", "watch_url": "videos.html"},
+  {"id": "the-fairy-queen", "title": "The Fairy Queen", "type": "Single", "meta": "Single", "listen_url": "https://www.youtube.com/watch?v=Xoe-xPoabGg", "watch_url": "videos.html"},
+  {"id": "soul-thief", "title": "Soul Thief", "type": "Single", "meta": "From \"Between Heaven and Hell\"", "listen_url": "https://www.youtube.com/watch?v=WYTFHiKp82I", "watch_url": "videos.html"},
+  {"id": "out-of-control", "title": "Out of Control", "type": "Single", "meta": "Single", "listen_url": "", "watch_url": "videos.html"},
+  {"id": "karan-the-viking", "title": "Karan the Viking", "type": "Single", "meta": "Single", "listen_url": "https://www.youtube.com/watch?v=Crk95aGLckg", "watch_url": "universe.html#characters"},
+  {"id": "lady-of-the-dragons", "title": "Lady of the Dragons", "type": "Single", "meta": "Single", "listen_url": "", "watch_url": "videos.html"},
+  {"id": "ave-and-glory", "title": "Ave and Glory", "type": "Single", "meta": "Single", "listen_url": "https://www.youtube.com/watch?v=T_CL9fgxsZk", "watch_url": "videos.html"},
+  {"id": "piratas-do-abc", "title": "Piratas do ABC", "type": "Single", "meta": "Single", "listen_url": "https://www.youtube.com/watch?v=a81FGVT1upU", "watch_url": "videos.html"},
+  {"id": "my-neighbor-is-a-witch", "title": "My Neighbor Is a Witch", "type": "Single", "meta": "Single", "listen_url": "https://youtube.com/shorts/AOYz42rX6aU", "watch_url": "videos.html"}
+]

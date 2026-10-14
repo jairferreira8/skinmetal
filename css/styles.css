@@ -671,6 +671,7 @@ section { position: relative; z-index: 1; padding: 110px 0; }
 .show-row .venue { flex: 1; min-width: 200px; }
 .show-row .venue strong { display: block; font-size: 1.05rem; }
 .show-row .venue span { color: var(--dark-silver); font-size: 0.85rem; }
+.empty-state { color: var(--dark-silver); text-align: center; padding: 50px 0; font-size: 0.95rem; }
 
 /* ---- Media / press ---- */
 .press-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
