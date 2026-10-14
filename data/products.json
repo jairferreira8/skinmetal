@@ -1,10 +1,9 @@
 [
-  {"id": "tecno-metal-tee", "name": "Tecno Metal Tee", "price": "$34.00", "category": "tshirts"},
-  {"id": "karan-tee", "name": "Karan the Viking Tee", "price": "$34.00", "category": "tshirts"},
-  {"id": "skinmetal-hoodie", "name": "SKINMETAL Hoodie", "price": "$68.00", "category": "hoodies"},
-  {"id": "dragon-poster", "name": "Dragon Poster", "price": "$18.00", "category": "posters"},
-  {"id": "dark-side-vinyl", "name": "Dark Side — Vinyl", "price": "$42.00", "category": "albums"},
-  {"id": "live-sao-paulo-cd", "name": "Live in São Paulo — CD", "price": "$22.00", "category": "albums"},
-  {"id": "limited-box-set", "name": "Limited Edition Box Set", "price": "$120.00", "category": "limited"},
-  {"id": "signed-poster-bundle", "name": "Signed Poster Bundle", "price": "$65.00", "category": "limited"}
+    {
+        "id": "camiseta-preta-skinmetal",
+        "name": "Camiseta Preta SkinMetal",
+        "price": "10",
+        "category": "tshirts",
+        "image": "assets/products/camiseta-preta-skinmetal-cce38e.png"
+    }
 ]
