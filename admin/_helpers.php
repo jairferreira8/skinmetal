@@ -52,3 +52,38 @@ function redirect(string $path): void {
     header('Location: ' . $path);
     exit;
 }
+
+/**
+ * Save an uploaded image ($_FILES[$field]) into /assets/<subdir>/ and return its
+ * public relative path (e.g. "assets/products/tecno-metal-tee-ab12.jpg"), or null
+ * when no file was uploaded. Throws RuntimeException on a real upload error.
+ */
+function save_uploaded_image(string $field, string $subdir, string $baseName): ?string {
+    if (empty($_FILES[$field]) || ($_FILES[$field]['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {
+        return null;
+    }
+    $file = $_FILES[$field];
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        throw new RuntimeException('Upload failed (error code ' . $file['error'] . ').');
+    }
+    if ($file['size'] > 5 * 1024 * 1024) {
+        throw new RuntimeException('Image must be smaller than 5 MB.');
+    }
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime = finfo_file($finfo, $file['tmp_name']);
+    finfo_close($finfo);
+    $extensions = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
+    if (!isset($extensions[$mime])) {
+        throw new RuntimeException('Please upload a JPG, PNG or WEBP image.');
+    }
+    $dir = dirname(__DIR__) . '/assets/' . $subdir;
+    if (!is_dir($dir)) {
+        mkdir($dir, 0755, true);
+    }
+    $filename = slugify($baseName) . '-' . substr(md5(uniqid('', true)), 0, 6) . '.' . $extensions[$mime];
+    $dest = $dir . '/' . $filename;
+    if (!move_uploaded_file($file['tmp_name'], $dest)) {
+        throw new RuntimeException('Could not save the uploaded file.');
+    }
+    return 'assets/' . $subdir . '/' . $filename;
+}

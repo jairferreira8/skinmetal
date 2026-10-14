@@ -1,5 +1,16 @@
 <?php
 /** Expects $page_title and $active to be set before include. */
+require_once __DIR__ . '/_icons.php';
+$nav = [
+    'home' => ['index.php', 'dashboard', 'Dashboard'],
+    'release' => ['release.php', 'release', 'Featured Release'],
+    'music' => ['music.php', 'music', 'Music'],
+    'videos' => ['videos.php', 'videos', 'Videos'],
+    'merch' => ['merch.php', 'products', 'Products'],
+    'live' => ['live.php', 'shows', 'Shows'],
+    'links' => ['links.php', 'links', 'Streaming Links'],
+    'messages' => ['messages.php', 'messages', 'Messages'],
+];
 ?><!doctype html>
 <html lang="en">
 <head>
@@ -10,16 +21,17 @@
 <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-<div class="admin-header">
-  <div class="brand">SKIN<span>METAL</span> — Admin</div>
-  <a href="logout.php" class="btn secondary">Log Out</a>
-</div>
-<div class="admin-nav">
-  <a href="index.php" class="<?= ($active ?? '') === 'home' ? 'active' : '' ?>">Dashboard</a>
-  <a href="music.php" class="<?= ($active ?? '') === 'music' ? 'active' : '' ?>">Music</a>
-  <a href="merch.php" class="<?= ($active ?? '') === 'merch' ? 'active' : '' ?>">Products</a>
-  <a href="live.php" class="<?= ($active ?? '') === 'live' ? 'active' : '' ?>">Shows</a>
-  <a href="links.php" class="<?= ($active ?? '') === 'links' ? 'active' : '' ?>">Streaming Links</a>
-  <a href="messages.php" class="<?= ($active ?? '') === 'messages' ? 'active' : '' ?>">Messages</a>
-</div>
-<div class="admin-main">
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="sidebar-brand">SKIN<span>METAL</span></div>
+    <nav class="sidebar-nav">
+      <?php foreach ($nav as $key => [$href, $icon, $label]): ?>
+        <a href="<?= h($href) ?>" class="<?= ($active ?? '') === $key ? 'active' : '' ?>"><?= admin_icon($icon) ?><span class="label-text"><?= h($label) ?></span></a>
+      <?php endforeach; ?>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="logout.php" class="btn secondary"><?= admin_icon('logout') ?> <span class="label-text">Log Out</span></a>
+    </div>
+  </aside>
+  <div class="admin-content">
+    <div class="admin-main">

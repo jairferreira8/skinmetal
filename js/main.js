@@ -72,22 +72,50 @@ function cardLinksHtml(listenUrl, watchUrl) {
   return parts.join('');
 }
 
+function youtubeThumbnail(url) {
+  if (!url) return null;
+  try {
+    const u = new URL(url, window.location.href);
+    const host = u.hostname.replace(/^www\./, '');
+    let id = null;
+    if (host === 'youtu.be') {
+      id = u.pathname.slice(1).split('/')[0];
+    } else if (host.endsWith('youtube.com')) {
+      if (u.pathname.startsWith('/shorts/')) {
+        id = u.pathname.split('/')[2];
+      } else if (u.pathname.startsWith('/embed/')) {
+        id = u.pathname.split('/')[2];
+      } else {
+        id = u.searchParams.get('v');
+      }
+    }
+    if (!id) return null;
+    id = id.split('?')[0].split('&')[0];
+    return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+  } catch (e) {
+    return null;
+  }
+}
+
 function renderSongs(songs, container) {
   if (!container) return;
   if (!songs.length) {
     container.innerHTML = '<p class="empty-note" style="color:var(--dark-silver);">No releases yet — check back soon.</p>';
     return;
   }
-  container.innerHTML = songs.map((s) => `
+  container.innerHTML = songs.map((s) => {
+    const thumb = youtubeThumbnail(s.listen_url) || youtubeThumbnail(s.watch_url);
+    return `
     <div class="card">
-      <div class="card-media"><span class="play-icon"></span></div>
+      <div class="card-media">${thumb ? `<img src="${escapeHtml(thumb)}" alt="" loading="lazy">` : ''}<span class="play-icon"></span></div>
       <div class="card-body">
         <h3>${escapeHtml(s.title)}</h3>
         <p class="meta">${escapeHtml(s.meta || s.type || '')}</p>
         <div class="card-links">${cardLinksHtml(s.listen_url, s.watch_url)}</div>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
   revealNow(container);
 }
 
@@ -99,7 +127,7 @@ function renderProducts(products, container) {
   }
   container.innerHTML = products.map((p) => `
     <div class="card product-card" data-product data-category="${escapeHtml(p.category)}">
-      <div class="card-media"></div>
+      <div class="card-media">${p.image ? `<img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}" loading="lazy">` : ''}</div>
       <div class="card-body"><h3>${escapeHtml(p.name)}</h3><p class="meta price">${escapeHtml(p.price)}</p></div>
     </div>
   `).join('');
@@ -124,6 +152,75 @@ function renderShows(shows, container, emptyEl) {
         : `<a href="contact.html" class="btn btn-outline">More Info Soon</a>`}
     </div>
   `).join('');
+  revealNow(container);
+}
+
+let RELEASE_DATE = new Date('2026-09-26T00:00:00-03:00').getTime();
+
+function formatReleaseDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr + 'T00:00:00');
+  if (isNaN(d.getTime())) return dateStr;
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function applyRelease(release) {
+  if (!release) return;
+  if (release.release_date) {
+    const parsed = new Date(release.release_date + 'T00:00:00-03:00').getTime();
+    if (!isNaN(parsed)) RELEASE_DATE = parsed;
+  }
+  document.querySelectorAll('[data-release-name]').forEach((el) => {
+    el.textContent = release.name || el.textContent;
+  });
+  document.querySelectorAll('[data-release-text]').forEach((el) => {
+    const field = el.dataset.releaseText;
+    if (release[field]) el.textContent = release[field];
+  });
+  document.querySelectorAll('[data-release-pre-label]').forEach((el) => {
+    el.textContent = `New Album — ${formatReleaseDate(release.release_date)}`;
+  });
+  document.querySelectorAll('[data-release-cover]').forEach((el) => {
+    if (release.cover_image) el.src = release.cover_image;
+  });
+  document.querySelectorAll('[data-release-link]').forEach((el) => {
+    const kind = el.dataset.releaseLink;
+    const url = kind === 'listen' ? release.listen_url : kind === 'trailer' ? release.trailer_url : null;
+    if (url) el.href = url;
+  });
+}
+
+const CATEGORY_TAGS = {
+  'music-video': 'Music Video', 'lyric': 'Lyric Video', 'live': 'Live',
+  'short-film': 'Short Film', 'metal-tales': 'Metal Tales', 'bts': 'Behind the Scenes',
+};
+
+const FEATURED_VIDEO_CARD = `
+  <div class="card" data-video data-category="music-video">
+    <div class="card-media" style="aspect-ratio:4/5; display:block;">
+      <video controls preload="metadata" style="width:100%; height:100%; object-fit:cover; display:block;">
+        <source src="assets/skinmetal-video.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="card-body"><h3>SKINMETAL — Official Video</h3><p class="meta">Featured</p></div>
+  </div>
+`;
+
+function renderVideos(videos, container) {
+  if (!container) return;
+  container.innerHTML = FEATURED_VIDEO_CARD + videos.map((v) => {
+    const thumb = youtubeThumbnail(v.watch_url);
+    const tag = CATEGORY_TAGS[v.category] || v.category;
+    return `
+    <div class="card" data-video data-category="${escapeHtml(v.category)}">
+      <div class="card-media">${thumb ? `<img src="${escapeHtml(thumb)}" alt="" loading="lazy">` : ''}<span class="play-icon"></span><div class="card-tag">${escapeHtml(tag)}</div></div>
+      <div class="card-body">
+        <h3>${escapeHtml(v.title)}</h3><p class="meta">${escapeHtml(v.meta || '')}</p>
+        ${v.watch_url ? `<div class="card-links"><a href="${escapeHtml(v.watch_url)}" target="_blank" rel="noopener">Watch</a></div>` : ''}
+      </div>
+    </div>
+  `;
+  }).join('');
   revealNow(container);
 }
 
@@ -155,6 +252,13 @@ function initDynamicContent() {
     const emptyEl = document.querySelector('[data-shows-empty]');
     fetchJson('api/shows.php').then((shows) => renderShows(shows || [], showsContainer, emptyEl));
   }
+
+  const videosContainer = document.querySelector('[data-videos-grid]');
+  if (videosContainer) {
+    fetchJson('api/videos.php').then((videos) => renderVideos(videos || [], videosContainer));
+  }
+
+  fetchJson('api/release.php').then((release) => applyRelease(release));
 
   return linksPromise;
 }
@@ -236,7 +340,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* Countdown to album launch */
-  const RELEASE_DATE = new Date('2026-09-26T00:00:00-03:00').getTime();
   const countdownEls = document.querySelectorAll('[data-countdown]');
   const preLabel = document.querySelectorAll('[data-pre-release]');
   const postLabel = document.querySelectorAll('[data-post-release]');

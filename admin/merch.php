@@ -20,23 +20,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($name === '') {
             $flash = 'err:Name is required.';
         } else {
-            $entry = [
-                'id' => $id !== '' ? $id : slugify($name),
-                'name' => $name,
-                'price' => $price,
-                'category' => $category,
-            ];
-            $found = false;
-            foreach ($products as $i => $p) {
-                if ($p['id'] === $entry['id']) {
-                    $products[$i] = $entry;
-                    $found = true;
-                    break;
-                }
+            $existingImage = '';
+            foreach ($products as $p) {
+                if ($p['id'] === ($id !== '' ? $id : slugify($name))) { $existingImage = $p['image'] ?? ''; break; }
             }
-            if (!$found) $products[] = $entry;
-            write_json('products', $products);
-            $flash = 'ok:Saved "' . $name . '".';
+            try {
+                $uploaded = save_uploaded_image('image', 'products', $name);
+            } catch (RuntimeException $e) {
+                $uploaded = null;
+                $flash = 'err:' . $e->getMessage();
+            }
+            if (!isset($flash) || $flash === '') {
+                $entry = [
+                    'id' => $id !== '' ? $id : slugify($name),
+                    'name' => $name,
+                    'price' => $price,
+                    'category' => $category,
+                    'image' => $uploaded ?? $existingImage,
+                ];
+                $found = false;
+                foreach ($products as $i => $p) {
+                    if ($p['id'] === $entry['id']) {
+                        $products[$i] = $entry;
+                        $found = true;
+                        break;
+                    }
+                }
+                if (!$found) $products[] = $entry;
+                write_json('products', $products);
+                $flash = 'ok:Saved "' . $name . '".';
+            }
         }
     } elseif ($action === 'delete') {
         $id = (string)($_POST['id'] ?? '');
@@ -66,7 +79,7 @@ include __DIR__ . '/_header.php';
 
 <div class="card">
   <h3 style="margin-top:0;"><?= $editing ? 'Edit Product' : 'Add a Product' ?></h3>
-  <form method="post">
+  <form method="post" enctype="multipart/form-data">
     <input type="hidden" name="action" value="save">
     <input type="hidden" name="id" value="<?= h($editing['id'] ?? '') ?>">
     <div class="row">
@@ -87,19 +100,27 @@ include __DIR__ . '/_header.php';
         </select>
       </div>
     </div>
+    <div class="field">
+      <label>Product Photo (JPG, PNG or WEBP, up to 5 MB)</label>
+      <?php if (!empty($editing['image'])): ?>
+        <img src="../<?= h($editing['image']) ?>" alt="" style="width:80px; height:80px; object-fit:cover; border-radius:4px; display:block; margin-bottom:8px;">
+      <?php endif; ?>
+      <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp">
+    </div>
     <button type="submit" class="btn"><?= $editing ? 'Save Changes' : 'Add Product' ?></button>
     <?php if ($editing): ?><a href="merch.php" class="btn secondary">Cancel</a><?php endif; ?>
   </form>
 </div>
 
 <table>
-  <thead><tr><th>Name</th><th>Category</th><th>Price</th><th></th></tr></thead>
+  <thead><tr><th>Photo</th><th>Name</th><th>Category</th><th>Price</th><th></th></tr></thead>
   <tbody>
     <?php if (!$products): ?>
-      <tr><td colspan="4" class="empty-state">No products yet.</td></tr>
+      <tr><td colspan="5" class="empty-state">No products yet.</td></tr>
     <?php endif; ?>
     <?php foreach ($products as $p): ?>
       <tr>
+        <td><?php if (!empty($p['image'])): ?><img src="../<?= h($p['image']) ?>" alt="" style="width:46px; height:46px; object-fit:cover; border-radius:4px;"><?php else: ?><span style="color:var(--muted);">—</span><?php endif; ?></td>
         <td><strong><?= h($p['name']) ?></strong></td>
         <td><?= h($categories[$p['category']] ?? $p['category']) ?></td>
         <td><?= h($p['price'] ?? '') ?></td>
