@@ -97,6 +97,12 @@ function youtubeThumbnail(url) {
   }
 }
 
+function mediaCardHtml(innerHtml, link) {
+  if (!link) return `<div class="card-media">${innerHtml}</div>`;
+  const isExternal = /^https?:\/\//i.test(link);
+  return `<a class="card-media" href="${escapeHtml(link)}"${isExternal ? ' target="_blank" rel="noopener"' : ''}>${innerHtml}</a>`;
+}
+
 function renderSongs(songs, container) {
   if (!container) return;
   if (!songs.length) {
@@ -104,10 +110,12 @@ function renderSongs(songs, container) {
     return;
   }
   container.innerHTML = songs.map((s) => {
-    const thumb = youtubeThumbnail(s.listen_url) || youtubeThumbnail(s.watch_url);
+    const thumb = s.image || youtubeThumbnail(s.listen_url) || youtubeThumbnail(s.watch_url);
+    const mediaLink = s.listen_url || s.watch_url || '';
+    const media = (thumb ? `<img src="${escapeHtml(thumb)}" alt="" loading="lazy">` : '') + '<span class="play-icon"></span>';
     return `
     <div class="card">
-      <div class="card-media">${thumb ? `<img src="${escapeHtml(thumb)}" alt="" loading="lazy">` : ''}<span class="play-icon"></span></div>
+      ${mediaCardHtml(media, mediaLink)}
       <div class="card-body">
         <h3>${escapeHtml(s.title)}</h3>
         <p class="meta">${escapeHtml(s.meta || s.type || '')}</p>
@@ -209,11 +217,12 @@ const FEATURED_VIDEO_CARD = `
 function renderVideos(videos, container) {
   if (!container) return;
   container.innerHTML = FEATURED_VIDEO_CARD + videos.map((v) => {
-    const thumb = youtubeThumbnail(v.watch_url);
+    const thumb = v.image || youtubeThumbnail(v.watch_url);
     const tag = CATEGORY_TAGS[v.category] || v.category;
+    const media = (thumb ? `<img src="${escapeHtml(thumb)}" alt="" loading="lazy">` : '') + `<span class="play-icon"></span><div class="card-tag">${escapeHtml(tag)}</div>`;
     return `
     <div class="card" data-video data-category="${escapeHtml(v.category)}">
-      <div class="card-media">${thumb ? `<img src="${escapeHtml(thumb)}" alt="" loading="lazy">` : ''}<span class="play-icon"></span><div class="card-tag">${escapeHtml(tag)}</div></div>
+      ${mediaCardHtml(media, v.watch_url || '')}
       <div class="card-body">
         <h3>${escapeHtml(v.title)}</h3><p class="meta">${escapeHtml(v.meta || '')}</p>
         ${v.watch_url ? `<div class="card-links"><a href="${escapeHtml(v.watch_url)}" target="_blank" rel="noopener">Watch</a></div>` : ''}

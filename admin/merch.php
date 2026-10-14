@@ -7,6 +7,16 @@ require_login();
 $products = read_json('products');
 $flash = '';
 $categories = ['tshirts' => 'T-Shirts', 'hoodies' => 'Hoodies', 'posters' => 'Posters', 'albums' => 'Albums', 'limited' => 'Limited Editions'];
+$currencySymbols = ['USD' => '$', 'BRL' => 'R$'];
+
+function parse_price_for_edit(string $price, array $symbols): array {
+    foreach ($symbols as $code => $symbol) {
+        if (str_starts_with($price, $symbol)) {
+            return [$code, trim(substr($price, strlen($symbol)))];
+        }
+    }
+    return ['USD', $price];
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
@@ -14,7 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'save') {
         $id = trim((string)($_POST['id'] ?? ''));
         $name = trim((string)($_POST['name'] ?? ''));
-        $price = trim((string)($_POST['price'] ?? ''));
+        $currency = (string)($_POST['currency'] ?? 'USD');
+        if (!isset($currencySymbols[$currency])) $currency = 'USD';
+        $amount = trim((string)($_POST['price_amount'] ?? ''));
+        $price = $amount !== '' ? $currencySymbols[$currency] . number_format((float)str_replace(',', '.', $amount), 2) : '';
         $category = trim((string)($_POST['category'] ?? 'tshirts'));
 
         if ($name === '') {
@@ -65,6 +78,7 @@ if (isset($_GET['edit'])) {
         if ($p['id'] === $_GET['edit']) { $editing = $p; break; }
     }
 }
+[$editCurrency, $editAmount] = parse_price_for_edit($editing['price'] ?? '', $currencySymbols);
 
 $page_title = 'Products';
 $active = 'merch';
@@ -88,8 +102,15 @@ include __DIR__ . '/_header.php';
         <input type="text" name="name" value="<?= h($editing['name'] ?? '') ?>" required>
       </div>
       <div class="field">
+        <label>Currency</label>
+        <select name="currency">
+          <option value="USD" <?= $editCurrency === 'USD' ? 'selected' : '' ?>>$ USD</option>
+          <option value="BRL" <?= $editCurrency === 'BRL' ? 'selected' : '' ?>>R$ BRL</option>
+        </select>
+      </div>
+      <div class="field">
         <label>Price</label>
-        <input type="text" name="price" value="<?= h($editing['price'] ?? '') ?>" placeholder="$34.00">
+        <input type="number" step="0.01" min="0" name="price_amount" value="<?= h($editAmount) ?>" placeholder="34.00">
       </div>
       <div class="field">
         <label>Category</label>
