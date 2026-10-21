@@ -20,12 +20,12 @@ $nav = [
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title><?= h($page_title ?? 'Admin') ?> — SKINMETAL Admin</title>
-<link rel="stylesheet" href="admin.css?v=20261015e">
+<link rel="stylesheet" href="admin.css?v=20261015f">
 </head>
 <body>
 <div class="admin-shell">
   <aside class="admin-sidebar">
-    <div class="sidebar-brand">SKIN<span>METAL</span></div>
+    <div class="sidebar-brand notranslate" translate="no">SKIN<span>METAL</span></div>
     <nav class="sidebar-nav">
       <?php foreach ($nav as $key => [$href, $icon, $label]): ?>
         <a href="<?= h($href) ?>" class="<?= ($active ?? '') === $key ? 'active' : '' ?>"><?= admin_icon($icon) ?><span class="label-text"><?= h($label) ?></span></a>
