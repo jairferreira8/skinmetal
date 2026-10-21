@@ -268,18 +268,19 @@ function renderMembers(members, container) {
     return;
   }
   container.innerHTML = members.map((m) => {
-    const bioHtml = (m.bio || '').split('\n\n').filter(Boolean).map((p) => `<p style="padding:0 18px; color:var(--silver); font-size:0.9rem;">${escapeHtml(p)}</p>`).join('');
+    const bioHtml = (m.bio || '').split('\n\n').filter(Boolean).map((p) => `<p>${escapeHtml(p)}</p>`).join('');
     const cardsHtml = (m.cards || []).length
       ? `<div class="member-facts">${m.cards.map((c) => `<div class="fact"><span class="label">${escapeHtml(c.label)}</span><span class="text">${escapeHtml(c.text)}</span></div>`).join('')}</div>`
       : '';
     return `
-    <div class="character-card">
-      <div class="portrait">${imgTag(m.photo, m.name, m.image_position)}</div>
-      <h3>${escapeHtml(m.name)}</h3>
-      <div class="role">${escapeHtml(m.role || '')}</div>
-      ${bioHtml}
-      ${cardsHtml}
-      <div style="padding-bottom:18px;"></div>
+    <div class="member-row">
+      <div class="member-portrait">${imgTag(m.photo, m.name, m.image_position)}</div>
+      <div class="member-copy">
+        <h3>${escapeHtml(m.name)}</h3>
+        <div class="role">${escapeHtml(m.role || '')}</div>
+        ${bioHtml}
+        ${cardsHtml}
+      </div>
     </div>
   `;
   }).join('');
