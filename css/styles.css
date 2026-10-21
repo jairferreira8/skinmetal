@@ -132,10 +132,10 @@ body::before {
   font-family: var(--font-display);
   font-size: 1.5rem;
   letter-spacing: 0.12em;
-  color: var(--white);
+  color: var(--blood-red);
   text-shadow: 0 0 18px rgba(176,0,0,0.6);
 }
-.logo span { color: var(--fire-orange); }
+.logo span { color: inherit; }
 
 .nav-links {
   display: flex;
@@ -258,11 +258,11 @@ body::before {
 }
 .hero h1 {
   font-size: clamp(2.6rem, 8vw, 6rem);
-  color: var(--white);
+  color: var(--blood-red);
   text-shadow: 0 0 40px rgba(176,0,0,0.55), 0 0 90px rgba(255,90,0,0.25);
   margin-bottom: 20px;
 }
-.hero h1 span { color: var(--fire-orange); }
+.hero h1 span { color: inherit; }
 .hero-tagline {
   font-family: var(--font-body);
   font-weight: 700;

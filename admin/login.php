@@ -29,11 +29,11 @@ if (!empty($_SESSION['admin_logged_in'])) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Admin Login — SKINMETAL</title>
-<link rel="stylesheet" href="admin.css?v=20261015d">
+<link rel="stylesheet" href="admin.css?v=20261015e">
 </head>
 <body>
 <div class="login-wrap">
-  <h1 style="text-align:center; margin-bottom:24px;">SKIN<span style="color:var(--accent)">METAL</span> Admin</h1>
+  <h1 style="text-align:center; margin-bottom:24px; color:#B00000;">SKINMETAL Admin</h1>
   <div class="card">
     <?php if ($error): ?><div class="flash err"><?= h($error) ?></div><?php endif; ?>
     <form method="post">
