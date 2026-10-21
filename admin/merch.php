@@ -43,6 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $uploaded = null;
                 $flash = 'err:' . $e->getMessage();
             }
+            $position = (string)($_POST['image_position'] ?? 'center');
+            if (!in_array($position, ['top', 'center', 'bottom'], true)) $position = 'center';
             if (!isset($flash) || $flash === '') {
                 $entry = [
                     'id' => $id !== '' ? $id : slugify($name),
@@ -50,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'price' => $price,
                     'category' => $category,
                     'image' => $uploaded ?? $existingImage,
+                    'image_position' => $position,
                 ];
                 $found = false;
                 foreach ($products as $i => $p) {
@@ -127,6 +130,15 @@ include __DIR__ . '/_header.php';
         <img src="../<?= h($editing['image']) ?>" alt="" style="width:80px; height:80px; object-fit:cover; border-radius:4px; display:block; margin-bottom:8px;">
       <?php endif; ?>
       <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp">
+    </div>
+    <div class="field">
+      <label>Photo Position (adjust if the photo looks cropped oddly)</label>
+      <select name="image_position">
+        <?php $pos = $editing['image_position'] ?? 'center'; ?>
+        <option value="top" <?= $pos === 'top' ? 'selected' : '' ?>>Top</option>
+        <option value="center" <?= $pos === 'center' ? 'selected' : '' ?>>Center</option>
+        <option value="bottom" <?= $pos === 'bottom' ? 'selected' : '' ?>>Bottom</option>
+      </select>
     </div>
     <button type="submit" class="btn"><?= $editing ? 'Save Changes' : 'Add Product' ?></button>
     <?php if ($editing): ?><a href="merch.php" class="btn secondary">Cancel</a><?php endif; ?>

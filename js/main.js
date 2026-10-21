@@ -30,6 +30,16 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
+function objectPositionStyle(position) {
+  const pos = position === 'top' ? 'center top' : position === 'bottom' ? 'center bottom' : 'center center';
+  return ` style="object-position:${pos};"`;
+}
+
+function imgTag(src, alt, position) {
+  if (!src) return '';
+  return `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt || '')}" loading="lazy"${objectPositionStyle(position)}>`;
+}
+
 const STREAM_LABELS = { spotify: 'Spotify', apple_music: 'Apple Music', youtube_music: 'YouTube Music', deezer: 'Deezer' };
 const SOCIAL_LABELS = { instagram: 'IG', youtube: 'YT', spotify: 'SP', tiktok: 'TT' };
 
@@ -112,7 +122,7 @@ function renderSongs(songs, container) {
   container.innerHTML = songs.map((s) => {
     const thumb = s.image || youtubeThumbnail(s.listen_url) || youtubeThumbnail(s.watch_url);
     const mediaLink = s.listen_url || s.watch_url || '';
-    const media = (thumb ? `<img src="${escapeHtml(thumb)}" alt="" loading="lazy">` : '') + '<span class="play-icon"></span>';
+    const media = imgTag(thumb, s.title, s.image ? s.image_position : null) + '<span class="play-icon"></span>';
     return `
     <div class="card">
       ${mediaCardHtml(media, mediaLink)}
@@ -135,7 +145,7 @@ function renderProducts(products, container) {
   }
   container.innerHTML = products.map((p) => `
     <div class="card product-card" data-product data-category="${escapeHtml(p.category)}">
-      <div class="card-media">${p.image ? `<img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}" loading="lazy">` : ''}</div>
+      <div class="card-media">${imgTag(p.image, p.name, p.image_position)}</div>
       <div class="card-body"><h3>${escapeHtml(p.name)}</h3><p class="meta price">${escapeHtml(p.price)}</p></div>
     </div>
   `).join('');
@@ -219,7 +229,7 @@ function renderVideos(videos, container) {
   container.innerHTML = FEATURED_VIDEO_CARD + videos.map((v) => {
     const thumb = v.image || youtubeThumbnail(v.watch_url);
     const tag = CATEGORY_TAGS[v.category] || v.category;
-    const media = (thumb ? `<img src="${escapeHtml(thumb)}" alt="" loading="lazy">` : '') + `<span class="play-icon"></span><div class="card-tag">${escapeHtml(tag)}</div>`;
+    const media = imgTag(thumb, v.title, v.image ? v.image_position : null) + `<span class="play-icon"></span><div class="card-tag">${escapeHtml(tag)}</div>`;
     return `
     <div class="card" data-video data-category="${escapeHtml(v.category)}">
       ${mediaCardHtml(media, v.watch_url || '')}
@@ -227,6 +237,49 @@ function renderVideos(videos, container) {
         <h3>${escapeHtml(v.title)}</h3><p class="meta">${escapeHtml(v.meta || '')}</p>
         ${v.watch_url ? `<div class="card-links"><a href="${escapeHtml(v.watch_url)}" target="_blank" rel="noopener">Watch</a></div>` : ''}
       </div>
+    </div>
+  `;
+  }).join('');
+  revealNow(container);
+}
+
+function renderGallery(items, container) {
+  if (!container) return;
+  const section = container.dataset.gallerySection || 'live';
+  const filtered = items.filter((it) => (it.section || 'live') === section);
+  const emptyEl = container.nextElementSibling && container.nextElementSibling.hasAttribute('data-gallery-empty')
+    ? container.nextElementSibling : null;
+  if (!filtered.length) {
+    container.innerHTML = '';
+    if (emptyEl) emptyEl.style.display = '';
+    return;
+  }
+  if (emptyEl) emptyEl.style.display = 'none';
+  container.innerHTML = filtered.map((it) => `
+    <div class="card-media" style="aspect-ratio:1;">${imgTag(it.image, it.caption, it.image_position)}</div>
+  `).join('');
+  revealNow(container);
+}
+
+function renderMembers(members, container) {
+  if (!container) return;
+  if (!members.length) {
+    container.innerHTML = '<p class="empty-note" style="color:var(--dark-silver);">The lineup will be revealed soon.</p>';
+    return;
+  }
+  container.innerHTML = members.map((m) => {
+    const bioHtml = (m.bio || '').split('\n\n').filter(Boolean).map((p) => `<p style="padding:0 18px; color:var(--silver); font-size:0.9rem;">${escapeHtml(p)}</p>`).join('');
+    const cardsHtml = (m.cards || []).length
+      ? `<div class="member-facts">${m.cards.map((c) => `<div class="fact"><span class="label">${escapeHtml(c.label)}</span><span class="text">${escapeHtml(c.text)}</span></div>`).join('')}</div>`
+      : '';
+    return `
+    <div class="character-card">
+      <div class="portrait">${imgTag(m.photo, m.name, m.image_position)}</div>
+      <h3>${escapeHtml(m.name)}</h3>
+      <div class="role">${escapeHtml(m.role || '')}</div>
+      ${bioHtml}
+      ${cardsHtml}
+      <div style="padding-bottom:18px;"></div>
     </div>
   `;
   }).join('');
@@ -248,7 +301,11 @@ function initDynamicContent() {
 
   const songsContainer = document.querySelector('[data-songs-grid]');
   if (songsContainer) {
-    fetchJson('api/songs.php').then((songs) => renderSongs(songs || [], songsContainer));
+    const limit = parseInt(songsContainer.dataset.limit || '', 10);
+    fetchJson('api/songs.php').then((songs) => {
+      const list = songs || [];
+      renderSongs(limit ? list.slice(0, limit) : list, songsContainer);
+    });
   }
 
   const productsContainer = document.querySelector('[data-products-grid]');
@@ -265,6 +322,18 @@ function initDynamicContent() {
   const videosContainer = document.querySelector('[data-videos-grid]');
   if (videosContainer) {
     fetchJson('api/videos.php').then((videos) => renderVideos(videos || [], videosContainer));
+  }
+
+  const galleryContainers = document.querySelectorAll('[data-gallery-grid]');
+  if (galleryContainers.length) {
+    fetchJson('api/gallery.php').then((items) => {
+      galleryContainers.forEach((c) => renderGallery(items || [], c));
+    });
+  }
+
+  const membersContainer = document.querySelector('[data-members-grid]');
+  if (membersContainer) {
+    fetchJson('api/members.php').then((members) => renderMembers(members || [], membersContainer));
   }
 
   fetchJson('api/release.php').then((release) => applyRelease(release));

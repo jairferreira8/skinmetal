@@ -1,0 +1,6 @@
+[
+  {"id": "band-photo", "image": "assets/band-photo.jpg", "caption": "SKINMETAL live", "section": "live", "image_position": "center"},
+  {"id": "promo-flyer", "image": "assets/promo-flyer.jpg", "caption": "SKINMETAL show", "section": "live", "image_position": "center"},
+  {"id": "logo-dragon", "image": "assets/logo-dragon.jpg", "caption": "SKINMETAL emblem", "section": "live", "image_position": "center"},
+  {"id": "wordmark-dragon", "image": "assets/wordmark-dragon.jpg", "caption": "SKINMETAL", "section": "live", "image_position": "center"}
+]

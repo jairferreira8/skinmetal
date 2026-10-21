@@ -505,6 +505,8 @@ section { position: relative; z-index: 1; padding: 110px 0; }
   object-fit: cover;
 }
 .card:hover .card-media::before { opacity: 1; }
+.card-media:has(img)::before,
+.card-media.has-img::before { display: none; }
 .card-media .play-icon {
   position: absolute; top: 50%; left: 50%;
   z-index: 2;
@@ -654,6 +656,33 @@ section { position: relative; z-index: 1; padding: 110px 0; }
   font-size: 0.72rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+}
+.member-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 18px 0;
+}
+.member-facts .fact {
+  flex: 1 1 130px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(184,184,184,0.08);
+  border-radius: 4px;
+  padding: 8px 10px;
+}
+.member-facts .fact .label {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.member-facts .fact .text {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--silver);
+  line-height: 1.4;
 }
 
 /* ---- Timeline / roadmap style rows (Live) ---- */

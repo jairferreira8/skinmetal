@@ -1,0 +1,79 @@
+[
+  {
+    "id": "jc-ski",
+    "name": "J.C. \"Ski\"",
+    "role": "Drummer (Virtual)",
+    "photo": "assets/member-ski.jpg",
+    "image_position": "center",
+    "bio": "J.C. \"Ski\" discovered his passion for music at 10, when his older brother brought home a worn-out cassette tape of Iron Maiden's Powerslave. Nicko McBrain's relentless drumming captivated him, and by 12 he was already playing on an improvised kit made of pots and pans. His parents, initially skeptical, gave him a real drum kit at 15 after he brought home excellent grades. Ski's technical precision, sharpened by an engineer's mindset, gives SKINMETAL's rhythm section its overwhelming force.\n\nA self-proclaimed \"nerd,\" Ski balances his intense stage presence with a quiet home life. Married to Liz, his high school sweetheart, he's a devoted father to his daughter, Pietra, and son, Lorenzo. His love of computers extends to programming drum sequences for fun, and he enjoys tinkering with music production software in the band's studio. On weekends, he cheers for Palmeiras or loses himself in Philip K. Dick science fiction novels.",
+    "cards": [
+      {"label": "Favorite Bands", "text": "Iron Maiden, Slayer, Dream Theater"},
+      {"label": "Inspirations", "text": "Nicko McBrain's dynamic energy, Dave Lombardo's raw force and Mike Portnoy's technical skill. Ski aims to combine precision with chaos, crafting beats that sound like \"a headbanging storm.\""},
+      {"label": "Profile", "text": "33 years old, born in São Bernardo do Campo. A Production Engineering graduate, he combines technical precision with explosive energy on the drums."},
+      {"label": "Beyond the Music", "text": "Married, father of two. Splits his time between family, football (a Palmeiras fan), reading and IT."}
+    ]
+  },
+  {
+    "id": "marco-alvarenga",
+    "name": "Marco Alvarenga",
+    "role": "Vocalist (Virtual)",
+    "photo": "assets/member-marco.jpg",
+    "image_position": "center",
+    "bio": "Marco Alvarenga lives and breathes music. Born in Santo André, he was the kid belting out Metallica's Enter Sandman at school talent shows, drawing applause and a few curious looks. By 16, he was already fronting a local thrash metal cover band, channeling James Hetfield's growl and Bruce Dickinson's range. His musical training refined his vocal control, but Marco's true strength is his raw emotional delivery — whether screaming through a thrash anthem or carrying a melancholic ballad, he owns the stage.\n\nSingle and unattached, Marco jokes that he's \"married to the microphone.\" His life revolves around music — writing lyrics late into the night, jamming with friends or digging through record stores for rare vinyl. His apartment is a shrine to metal, with Judas Priest and Pantera posters covering the walls. Marco's lyrics for SKINMETAL explore themes of rebellion, inner conflict and dystopian futures, inspired by late-night cyberpunk movie marathons and existential philosophy.",
+    "cards": [
+      {"label": "Favorite Bands", "text": "Metallica, Judas Priest, Dio"},
+      {"label": "Inspirations", "text": "James Hetfield's commanding presence, Rob Halford's vocal range and Ronnie James Dio's storytelling ability. Marco aims to \"make every scream sound like it's tearing through his soul.\""},
+      {"label": "Beginnings", "text": "Grew up in Santo André singing Metallica at school talent shows, impressing everyone with his vocal range."},
+      {"label": "Training", "text": "Formally trained in music, he refined his vocal control without losing the raw, emotional delivery that defines him."},
+      {"label": "SKINMETAL", "text": "His lyrics explore themes of rebellion, inner conflict and dystopian futures, inspired by cyberpunk films and existential philosophy."}
+    ]
+  },
+  {
+    "id": "alejandro-martinez",
+    "name": "Alejandro Martinez",
+    "role": "Lead Guitarist (Virtual)",
+    "photo": "assets/member-alejandro.jpg",
+    "image_position": "center",
+    "bio": "Alejandro Martinez's journey into heavy metal began at 14, when he borrowed his cousin's electric guitar and discovered Megadeth's Rust in Peace. Dave Mustaine's intricate riffs and blazing solos hooked him instantly. Self-taught for years, Alejandro later took lessons to master shred techniques, blending speed with the melodic flourishes that define SKINMETAL's sound. His background in biology gives him a unique perspective, leading him to compare his solos to \"the chaos and harmony of ecosystems.\"\n\nEngaged to his partner, Sofia, Alejandro is planning a wedding that, he jokes, will feature \"at least one Metallica song at the reception.\" His hobbies reflect his high-energy personality — he races go-karts on weekends, flies drones to capture aerial shots of São Paulo, and never misses a Corinthians match. On tour, he's the band's unofficial videographer, using his drone to capture epic shots of venues and crowds.",
+    "cards": [
+      {"label": "Favorite Bands", "text": "Megadeth, Pantera, Testament"},
+      {"label": "Inspirations", "text": "Dave Mustaine's technical precision, Dimebag Darrell's soulful aggression and Alex Skolnick's versatility. Alejandro aims to craft solos that \"hit like lightning and linger like a sunset.\""},
+      {"label": "Electrifying Solos", "text": "Technique that \"hits like lightning\""},
+      {"label": "Biology Background", "text": "A unique perspective on music and composition"},
+      {"label": "Wide-Ranging Passions", "text": "Drones, go-karts and football (Corinthians)"},
+      {"label": "Profile", "text": "30 years old, a self-taught native of Santo André who found his true calling in heavy metal after hearing Megadeth at 14. Engaged to Sofia, Alejandro is the band's unofficial videographer, capturing epic moments with his drones."}
+    ]
+  },
+  {
+    "id": "marcelo-rubio",
+    "name": "Marcelo Rubio",
+    "role": "Rhythm Guitarist (Virtual)",
+    "photo": "assets/member-marcelo.jpg",
+    "image_position": "center",
+    "bio": "Marcelo Rubio's love for heavy metal began at 17, when he saw Sepultura live in São Paulo. Roots' raw energy blew him away, and he picked up a guitar to mimic Andreas Kisser's crushing riffs. Though his business administration degree led to a brief corporate career, Marcelo left the office behind to pursue music full-time, joining SKINMETAL in its early days. His rhythm guitar work is the backbone of the band, delivering the crushing, groove-laden riffs that anchor the sound.\n\nMarried to his wife, Carla, Marcelo is a laid-back family man who values his downtime. His favorite escape is the forests of Paraná, where he camps, hikes and \"just looks at the trees.\" He jokes that \"doing nothing\" is an art form, but it's his way of recharging for SKINMETAL's high-intensity performances. His kids, Lucas and Pedro, are young metalheads who often crash rehearsals to watch their dad play.",
+    "cards": [
+      {"label": "Favorite Bands", "text": "Sepultura, Black Sabbath, Gojira"},
+      {"label": "Inspirations", "text": "Andreas Kisser's cultural pride, Tony Iommi's command of the riff and Joe Duplantier's environmental awareness. Marcelo wants his riffs to \"feel like an earthquake you can mosh to.\""},
+      {"label": "Powerful Riffs", "text": "The sonic backbone of SKINMETAL"},
+      {"label": "Nature Lover", "text": "Escapes to the forests of Paraná to recharge"},
+      {"label": "Family Life", "text": "Married to Carla, father of two young metalheads"},
+      {"label": "Career Change", "text": "Left the corporate world for music"}
+    ]
+  },
+  {
+    "id": "lorenzo-bianchini",
+    "name": "Lorenzo Bianchini",
+    "role": "Bassist (Virtual)",
+    "photo": "assets/member-lorenzo.webp",
+    "image_position": "center",
+    "bio": "Lorenzo Bianchini found his calling at 15, hearing Steve Harris's galloping bass lines on Iron Maiden's The Number of the Beast. He begged his parents for a bass and spent hours practicing in the garage, mimicking Harris's style. His mechanical engineering background brings a methodical approach to his playing, but on stage, Lorenzo is a whirlwind, headbanging while delivering the dense, driving basslines that hold SKINMETAL's sound together.\n\nA free spirit, Lorenzo is single with no plans to settle down anytime soon. His love of travel has taken him to metal festivals across Europe, South America and Asia, where he collects rare coins as souvenirs. At home, he's a fierce competitor on the basketball court, often challenging bandmates to one-on-one matches — and usually winning. His coin collection, ranging from ancient Roman denarii to modern commemorative pieces, is his pride and joy.",
+    "cards": [
+      {"label": "Favorite Bands", "text": "Iron Maiden, Tool, Mastodon"},
+      {"label": "Inspirations", "text": "Steve Harris's melodic basslines, Justin Chancellor's atmospheric grooves and Troy Sanders's raw intensity. Lorenzo wants to \"make the bass sound like the heartbeat of the music.\""},
+      {"label": "Traveler", "text": "Metal festivals around the world"},
+      {"label": "Distinct Style", "text": "Melodic basslines inspired by Steve Harris"},
+      {"label": "Collector", "text": "Rare coins from various historical periods"},
+      {"label": "Athlete", "text": "Challenges bandmates to basketball games"}
+    ]
+  }
+]
