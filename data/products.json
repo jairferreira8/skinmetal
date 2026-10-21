@@ -1,9 +1,23 @@
 [
     {
-        "id": "camiseta-preta-skinmetal",
-        "name": "Camiseta Preta SkinMetal",
-        "price": "10",
+        "id": "t-shirts",
+        "name": "T-Shirts",
+        "price": "$16.00",
         "category": "tshirts",
-        "image": "assets/products/camiseta-preta-skinmetal-cce38e.png"
+        "image": "assets/products/t-shirts-89937f.png"
+    },
+    {
+        "id": "3d-skinmetal-logo",
+        "name": "3D SKINMETAL Logo",
+        "price": "$13.00",
+        "category": "limited",
+        "image": "assets/products/3d-skinmetal-logo-05a51d.jpg"
+    },
+    {
+        "id": "skinmetal-band",
+        "name": "SKINMETAL BAND",
+        "price": "$3.00",
+        "category": "posters",
+        "image": "assets/products/skinmetal-band-abc85e.png"
     }
 ]

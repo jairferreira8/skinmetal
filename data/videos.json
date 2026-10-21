@@ -1,16 +1,86 @@
 [
-  {"id": "dark-side", "title": "Dark Side", "meta": "Title Track, New Album", "category": "music-video", "watch_url": "https://www.youtube.com/watch?v=neQPOz-5otQ"},
-  {"id": "karan-the-viking", "title": "Karan the Viking", "meta": "Official Music Video", "category": "music-video", "watch_url": "https://www.youtube.com/watch?v=Crk95aGLckg"},
-  {"id": "the-fairy-queen", "title": "The Fairy Queen", "meta": "Full Video", "category": "music-video", "watch_url": "https://www.youtube.com/watch?v=Xoe-xPoabGg"},
-  {"id": "ave-and-glory", "title": "Ave and Glory", "meta": "Extended Video", "category": "music-video", "watch_url": "https://www.youtube.com/watch?v=T_CL9fgxsZk"},
-  {"id": "piratas-do-abc", "title": "Piratas do ABC", "meta": "Official Music Video", "category": "music-video", "watch_url": "https://www.youtube.com/watch?v=a81FGVT1upU"},
-  {"id": "forever-lyric", "title": "Forever", "meta": "Lyric Video", "category": "lyric", "watch_url": ""},
-  {"id": "soul-thief-live", "title": "Soul Thief", "meta": "Highlights, Digital Performance", "category": "live", "watch_url": "https://www.youtube.com/watch?v=WYTFHiKp82I"},
-  {"id": "live-in-sao-paulo-full", "title": "Live in São Paulo", "meta": "Full Performance", "category": "live", "watch_url": ""},
-  {"id": "shadows-of-whitechapel", "title": "Shadows of Whitechapel", "meta": "Cinematic Short", "category": "short-film", "watch_url": ""},
-  {"id": "my-neighbor-is-a-witch-short", "title": "My Neighbor Is a Witch", "meta": "#Shorts", "category": "short-film", "watch_url": "https://youtube.com/shorts/AOYz42rX6aU"},
-  {"id": "saga-of-karan-chapter-1", "title": "The Saga of Karan the Viking: Chapter I", "meta": "\"The Boy Died... The Legend Was Born\"", "category": "metal-tales", "watch_url": "https://www.youtube.com/watch?v=L-4HTMfaPVU"},
-  {"id": "metal-tales-channel", "title": "Metal Tales: Shorts Channel", "meta": "All Metal Tales Shorts", "category": "metal-tales", "watch_url": "https://www.youtube.com/@METALTALES-shorts"},
-  {"id": "building-tecno-metal", "title": "Building Tecno Metal", "meta": "Behind the Scenes", "category": "bts", "watch_url": ""},
-  {"id": "making-the-new-album", "title": "Making the New Album", "meta": "Behind the Scenes", "category": "bts", "watch_url": ""}
+    {
+        "id": "dark-side",
+        "title": "Dark Side",
+        "meta": "Title Track, New Album",
+        "category": "music-video",
+        "watch_url": "https://www.youtube.com/watch?v=neQPOz-5otQ"
+    },
+    {
+        "id": "karan-the-viking",
+        "title": "Karan the Viking",
+        "meta": "Official Music Video",
+        "category": "music-video",
+        "watch_url": "https://www.youtube.com/watch?v=Crk95aGLckg"
+    },
+    {
+        "id": "the-fairy-queen",
+        "title": "The Fairy Queen",
+        "meta": "Full Video",
+        "category": "music-video",
+        "watch_url": "https://www.youtube.com/watch?v=Xoe-xPoabGg"
+    },
+    {
+        "id": "ave-and-glory",
+        "title": "Ave and Glory",
+        "meta": "Extended Video",
+        "category": "music-video",
+        "watch_url": "https://www.youtube.com/watch?v=T_CL9fgxsZk"
+    },
+    {
+        "id": "piratas-do-abc",
+        "title": "SKINMETAL YOU'VE NEVER HEARD ANYTHING LIKE IT!",
+        "meta": "Official Music Video",
+        "category": "music-video",
+        "watch_url": "https://www.youtube.com/watch?v=a81FGVT1upU"
+    },
+    {
+        "id": "forever-lyric",
+        "title": "Forever",
+        "meta": "Lyric Video",
+        "category": "music-video",
+        "watch_url": "https://youtu.be/gutbJSgRR7o"
+    },
+    {
+        "id": "soul-thief-live",
+        "title": "Soul Thief",
+        "meta": "Highlights, Digital Performance",
+        "category": "lyric",
+        "watch_url": "https://www.youtube.com/watch?v=WYTFHiKp82I"
+    },
+    {
+        "id": "my-neighbor-is-a-witch-short",
+        "title": "My Neighbor Is a Witch",
+        "meta": "Shorts",
+        "category": "short-film",
+        "watch_url": "https://youtube.com/shorts/AOYz42rX6aU"
+    },
+    {
+        "id": "saga-of-karan-chapter-1",
+        "title": "The Saga of Karan the Viking: Chapter I",
+        "meta": "\"The Boy Died... The Legend Was Born\"",
+        "category": "metal-tales",
+        "watch_url": "https://www.youtube.com/watch?v=L-4HTMfaPVU"
+    },
+    {
+        "id": "metal-tales-channel",
+        "title": "Metal Tales: Shorts Channel",
+        "meta": "All Metal Tales Shorts",
+        "category": "metal-tales",
+        "watch_url": "https://www.youtube.com/@METALTALES-shorts"
+    },
+    {
+        "id": "building-tecno-metal",
+        "title": "Building Tecno Metal",
+        "meta": "SKINMETAL YOU'VE NEVER HEARD ANYTHING LIKE IT!",
+        "category": "bts",
+        "watch_url": "https://youtu.be/1KGyXuX2eRA"
+    },
+    {
+        "id": "making-the-new-album",
+        "title": "Making the New Album",
+        "meta": "Behind the Scenes",
+        "category": "bts",
+        "watch_url": "https://youtube.com/shorts/ZgVH4DzI1PE"
+    }
 ]

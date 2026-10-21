@@ -1,15 +1,155 @@
 [
-  {"id": "forever", "title": "Forever", "type": "Single", "meta": "Single", "listen_url": "", "watch_url": "videos.html"},
-  {"id": "between-heaven-and-hell", "title": "Between Heaven and Hell", "type": "Album", "meta": "Album · 11 Songs", "listen_url": "https://open.spotify.com/intl-pt/album/1xvfpyOqfOQveY4NK9aieB?si=R9nW7_JESmKkc8mGEXyfrA", "watch_url": "videos.html"},
-  {"id": "skinmetal-ballads", "title": "SKINMETAL Ballads", "type": "Single", "meta": "Single · 3 Songs", "listen_url": "https://open.spotify.com/intl-pt/album/4HyvIDToiYzehL12XjXg9S?si=Qk5QvVMdQ2KHGtDbn2BbDQ", "watch_url": "videos.html"},
-  {"id": "live-in-sao-paulo", "title": "Live in São Paulo", "type": "Live Album", "meta": "Live Album", "listen_url": "", "watch_url": "videos.html"},
-  {"id": "pandoras-box", "title": "Pandora's Box", "type": "Single", "meta": "Single", "listen_url": "", "watch_url": "videos.html"},
-  {"id": "the-fairy-queen", "title": "The Fairy Queen", "type": "Single", "meta": "Single", "listen_url": "https://www.youtube.com/watch?v=Xoe-xPoabGg", "watch_url": "videos.html"},
-  {"id": "soul-thief", "title": "Soul Thief", "type": "Single", "meta": "From \"Between Heaven and Hell\"", "listen_url": "https://www.youtube.com/watch?v=WYTFHiKp82I", "watch_url": "videos.html"},
-  {"id": "out-of-control", "title": "Out of Control", "type": "Single", "meta": "Single", "listen_url": "", "watch_url": "videos.html"},
-  {"id": "karan-the-viking", "title": "Karan the Viking", "type": "Single", "meta": "Single", "listen_url": "https://www.youtube.com/watch?v=Crk95aGLckg", "watch_url": "universe.html#characters"},
-  {"id": "lady-of-the-dragons", "title": "Lady of the Dragons", "type": "Single", "meta": "Single", "listen_url": "", "watch_url": "videos.html"},
-  {"id": "ave-and-glory", "title": "Ave and Glory", "type": "Single", "meta": "Single", "listen_url": "https://www.youtube.com/watch?v=T_CL9fgxsZk", "watch_url": "videos.html"},
-  {"id": "piratas-do-abc", "title": "Piratas do ABC", "type": "Single", "meta": "Single", "listen_url": "https://www.youtube.com/watch?v=a81FGVT1upU", "watch_url": "videos.html"},
-  {"id": "my-neighbor-is-a-witch", "title": "My Neighbor Is a Witch", "type": "Single", "meta": "Single", "listen_url": "https://youtube.com/shorts/AOYz42rX6aU", "watch_url": "videos.html"}
+    {
+        "id": "forever",
+        "title": "Forever",
+        "type": "Album",
+        "meta": "Album",
+        "listen_url": "https://open.spotify.com/intl-pt/album/11emchOn569MOZcyxmHFet?si=XQzjowLUT5GNgEOLlTEHaA",
+        "watch_url": "https://youtu.be/gutbJSgRR7o",
+        "image": "assets/songs/forever-8f3465.jpg"
+    },
+    {
+        "id": "between-heaven-and-hell",
+        "title": "Between Heaven and Hell",
+        "type": "Album",
+        "meta": "Album · 11 Songs",
+        "listen_url": "https://open.spotify.com/intl-pt/album/1xvfpyOqfOQveY4NK9aieB?si=R9nW7_JESmKkc8mGEXyfrA",
+        "watch_url": "videos.html",
+        "image": "assets/songs/between-heaven-and-hell-b4e11f.jpg"
+    },
+    {
+        "id": "skinmetal-ballads",
+        "title": "SKINMETAL Ballads",
+        "type": "Album",
+        "meta": "Single · 3 Songs",
+        "listen_url": "https://open.spotify.com/intl-pt/album/4HyvIDToiYzehL12XjXg9S?si=_oMsywoAQVO_UIY2bALCQQ",
+        "watch_url": "https://youtu.be/EGzzgWMbq6Q",
+        "image": "assets/songs/skinmetal-ballads-b8a2a9.png"
+    },
+    {
+        "id": "live-in-sao-paulo",
+        "title": "Live in São Paulo",
+        "type": "Live Album",
+        "meta": "Live Album",
+        "listen_url": "",
+        "watch_url": "https://youtu.be/WYTFHiKp82I",
+        "image": "assets/songs/live-in-s-o-paulo-6fe7f3.png"
+    },
+    {
+        "id": "pandoras-box",
+        "title": "Pandora's Box",
+        "type": "Single",
+        "meta": "Single",
+        "listen_url": "https://youtu.be/EGzzgWMbq6Q",
+        "watch_url": "https://youtu.be/EGzzgWMbq6Q",
+        "image": "assets/songs/pandora-s-box-92e2cf.png"
+    },
+    {
+        "id": "the-fairy-queen",
+        "title": "The Fairy Queen",
+        "type": "Single",
+        "meta": "Single",
+        "listen_url": "https://open.spotify.com/intl-pt/album/1GlgJcQPWzTCeBjlQ4ukuc?si=-_XvHEcDRbKEskgT0TNGiw",
+        "watch_url": "https://youtu.be/Xoe-xPoabGg",
+        "image": "assets/songs/the-fairy-queen-6490b1.png"
+    },
+    {
+        "id": "out-of-control",
+        "title": "Out of Control",
+        "type": "Single",
+        "meta": "Single",
+        "listen_url": "https://open.spotify.com/intl-pt/track/7mpA36oTouIozx6dukHVfj?si=eb5048907b254581",
+        "watch_url": "https://youtu.be/dABlu8JCjas",
+        "image": "assets/songs/out-of-control-75247a.jpg"
+    },
+    {
+        "id": "karan-the-viking",
+        "title": "Karan the Viking",
+        "type": "Single",
+        "meta": "Single",
+        "listen_url": "https://open.spotify.com/intl-pt/album/4udyjMxZVNmahywlav6Woh?si=p1HnSINQQ3GmY62chL1LnA",
+        "watch_url": "https://youtu.be/a81jY9v3Q1M",
+        "image": "assets/songs/karan-the-viking-e9cd32.jpg"
+    },
+    {
+        "id": "lady-of-the-dragons",
+        "title": "Lady of the Dragons",
+        "type": "Single",
+        "meta": "Single",
+        "listen_url": "https://open.spotify.com/intl-pt/track/45SG3b20u6xa7OyyaXcoIt?si=a42a67da25874d32",
+        "watch_url": "https://youtu.be/8HOv7-Lpxls",
+        "image": "assets/songs/lady-of-the-dragons-8dbd26.png"
+    },
+    {
+        "id": "ave-and-glory",
+        "title": "Ave and Glory",
+        "type": "Single",
+        "meta": "Single",
+        "listen_url": "https://open.spotify.com/intl-pt/album/2WuEVzD8afldbXS58TkrHa?si=djp6IkVZTRudIUvYcha7oA",
+        "watch_url": "https://youtu.be/T_CL9fgxsZk",
+        "image": "assets/songs/ave-and-glory-95b469.png"
+    },
+    {
+        "id": "my-neighbor-is-a-witch",
+        "title": "My Neighbor Is a Witch",
+        "type": "Single",
+        "meta": "Single",
+        "listen_url": "https://open.spotify.com/intl-pt/track/7ukkjWst06ebg8max0gfup?si=5adf2caa5d7d4f84",
+        "watch_url": "",
+        "image": "assets/songs/my-neighbor-is-a-witch-a338d0.png"
+    },
+    {
+        "id": "dark-side",
+        "title": "Dark Side",
+        "type": "Album",
+        "meta": "Album",
+        "listen_url": "https://open.spotify.com/intl-pt/album/0vMq35DA9zKfbtL40Ffszg?si=VP6TOgDUQjSMas598ly85Q",
+        "watch_url": "https://youtu.be/neQPOz-5otQ",
+        "image": "assets/songs/dark-side-99dc9a.png"
+    },
+    {
+        "id": "the-game-of-fear",
+        "title": "The Game of Fear",
+        "type": "Single",
+        "meta": "Single",
+        "listen_url": "https://open.spotify.com/intl-pt/track/5O5Sz4Ik7MwACJ3QczHOqa?si=a636e1f9a53440c4",
+        "watch_url": "https://youtu.be/hbFVRbHC70A",
+        "image": "assets/songs/the-game-of-fear-82e9dd.png"
+    },
+    {
+        "id": "masks-of-the-damned",
+        "title": "Masks of the Damned",
+        "type": "Single",
+        "meta": "Single",
+        "listen_url": "https://open.spotify.com/intl-pt/track/5gPtk3J3MeV6gdocZ7Qsaq?si=1c2e3c5e6c3c4210",
+        "watch_url": "https://youtu.be/rIjCAQ9Uk6o",
+        "image": "assets/songs/masks-of-the-damned-bbb560.png"
+    },
+    {
+        "id": "fakiri-gladiator-of-the-dunes",
+        "title": "Fakiri Gladiator of the Dunes",
+        "type": "Single",
+        "meta": "Single",
+        "listen_url": "https://open.spotify.com/intl-pt/track/3TH628eI9I5nysBxT8GWiz?si=a0fa8bf0677f4be5",
+        "watch_url": "https://youtu.be/ltUkSZrKTWs",
+        "image": "assets/songs/fakiri-gladiator-of-the-dunes-9941a5.jpg"
+    },
+    {
+        "id": "fall-of-the-black-knight",
+        "title": "Fall of the Black Knight",
+        "type": "Single",
+        "meta": "Single",
+        "listen_url": "https://open.spotify.com/intl-pt/track/353w9B79WSDLdm4dteNLZU?si=2fa8cfc0cf6f49d0",
+        "watch_url": "https://youtu.be/RBjpUGec6c4",
+        "image": "assets/songs/fall-of-the-black-knight-991d72.jpg"
+    },
+    {
+        "id": "skinmetal",
+        "title": "SKINMETAL",
+        "type": "Single",
+        "meta": "SKINMETAL",
+        "listen_url": "https://open.spotify.com/intl-pt/track/5U5lNPTfpnekJxkPR2FkWX?si=86c4367bcd2b482f",
+        "watch_url": "https://youtube.com/shorts/xYdUsdudw1A",
+        "image": "assets/songs/skinmetal-dcec68.jpg"
+    }
 ]
