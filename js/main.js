@@ -1,4 +1,4 @@
-// SKINMETAL — shared site behavior
+// SKINMETAL: shared site behavior
 
 function wireFilterGroups() {
   document.querySelectorAll('[data-filter-group]').forEach((group) => {
@@ -116,7 +116,7 @@ function mediaCardHtml(innerHtml, link) {
 function renderSongs(songs, container) {
   if (!container) return;
   if (!songs.length) {
-    container.innerHTML = '<p class="empty-note" style="color:var(--dark-silver);">No releases yet — check back soon.</p>';
+    container.innerHTML = '<p class="empty-note" style="color:var(--dark-silver);">No releases yet. Check back soon.</p>';
     return;
   }
   container.innerHTML = songs.map((s) => {
@@ -140,7 +140,7 @@ function renderSongs(songs, container) {
 function renderProducts(products, container) {
   if (!container) return;
   if (!products.length) {
-    container.innerHTML = '<p class="empty-note" style="color:var(--dark-silver);">No products listed yet — check back soon.</p>';
+    container.innerHTML = '<p class="empty-note" style="color:var(--dark-silver);">No products listed yet. Check back soon.</p>';
     return;
   }
   container.innerHTML = products.map((p) => `
@@ -196,7 +196,7 @@ function applyRelease(release) {
     if (release[field]) el.textContent = release[field];
   });
   document.querySelectorAll('[data-release-pre-label]').forEach((el) => {
-    el.textContent = `New Album — ${formatReleaseDate(release.release_date)}`;
+    el.textContent = `New Album: ${formatReleaseDate(release.release_date)}`;
   });
   document.querySelectorAll('[data-release-cover]').forEach((el) => {
     if (release.cover_image) el.src = release.cover_image;
@@ -220,7 +220,7 @@ const FEATURED_VIDEO_CARD = `
         <source src="assets/skinmetal-video.mp4" type="video/mp4">
       </video>
     </div>
-    <div class="card-body"><h3>SKINMETAL — Official Video</h3><p class="meta">Featured</p></div>
+    <div class="card-body"><h3>SKINMETAL: Official Video</h3><p class="meta">Featured</p></div>
   </div>
 `;
 
@@ -480,7 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* Real contact form submission */
   initContactForm();
 
-  /* Newsletter / other local-only forms — no backend, just confirm intent */
+  /* Newsletter / other local-only forms: no backend, just confirm intent */
   document.querySelectorAll('form[data-local-form]').forEach((form) => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
