@@ -7,11 +7,15 @@ require_login();
 $links = read_json('links', [
     'spotify' => '', 'apple_music' => '', 'youtube_music' => '', 'deezer' => '',
     'instagram' => '', 'youtube' => '', 'tiktok' => '',
+    'contact_email' => '', 'contact_whatsapp_number' => '', 'contact_whatsapp_display' => '',
 ]);
 $flash = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    foreach (['spotify', 'apple_music', 'youtube_music', 'deezer', 'instagram', 'youtube', 'tiktok'] as $key) {
+    foreach ([
+        'spotify', 'apple_music', 'youtube_music', 'deezer', 'instagram', 'youtube', 'tiktok',
+        'contact_email', 'contact_whatsapp_number', 'contact_whatsapp_display',
+    ] as $key) {
         $links[$key] = trim((string)($_POST[$key] ?? ''));
     }
     write_json('links', $links);
@@ -42,6 +46,14 @@ include __DIR__ . '/_header.php';
     <div class="field"><label>Instagram</label><input type="url" name="instagram" value="<?= h($links['instagram']) ?>"></div>
     <div class="field"><label>YouTube</label><input type="url" name="youtube" value="<?= h($links['youtube']) ?>"></div>
     <div class="field"><label>TikTok</label><input type="url" name="tiktok" value="<?= h($links['tiktok']) ?>"></div>
+  </div>
+  <h3>Contact Page</h3>
+  <div class="row">
+    <div class="field"><label>Contact Email</label><input type="email" name="contact_email" value="<?= h($links['contact_email'] ?? '') ?>" placeholder="band@example.com"></div>
+  </div>
+  <div class="row">
+    <div class="field"><label>WhatsApp Number (digits only, with country code, for the link)</label><input type="text" name="contact_whatsapp_number" value="<?= h($links['contact_whatsapp_number'] ?? '') ?>" placeholder="5511975458085"></div>
+    <div class="field"><label>WhatsApp Display Text</label><input type="text" name="contact_whatsapp_display" value="<?= h($links['contact_whatsapp_display'] ?? '') ?>" placeholder="+55 11 97545-8085"></div>
   </div>
   <button type="submit" class="btn">Save Links</button>
 </form>

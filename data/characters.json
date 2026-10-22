@@ -1,0 +1,8 @@
+[
+  {"id": "karan-the-viking", "name": "Karan the Viking", "role": "Warrior of the North", "photo": "", "image_position": "center", "link_label": "Watch the Saga", "link_url": "https://www.youtube.com/watch?v=L-4HTMfaPVU"},
+  {"id": "sigrid", "name": "Sigrid", "role": "Keeper of Fire", "photo": "", "image_position": "center", "link_label": "", "link_url": ""},
+  {"id": "the-dragon", "name": "The Dragon", "role": "Guardian of the Realm", "photo": "", "image_position": "center", "link_label": "", "link_url": ""},
+  {"id": "the-raven", "name": "The Raven", "role": "Messenger of Shadows", "photo": "", "image_position": "center", "link_label": "", "link_url": ""},
+  {"id": "the-fairy-queen", "name": "The Fairy Queen", "role": "Ruler of the Hidden Realm", "photo": "", "image_position": "center", "link_label": "", "link_url": ""},
+  {"id": "the-soul-thief", "name": "The Soul Thief", "role": "Wanderer of Whitechapel", "photo": "", "image_position": "center", "link_label": "", "link_url": ""}
+]

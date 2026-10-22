@@ -28,12 +28,13 @@
     },
     {
         "id": "live-in-sao-paulo",
-        "title": "Live in São Paulo",
-        "type": "Live Album",
-        "meta": "Live Album",
+        "title": "SKINMETAL 3D Holographic Show",
+        "type": "Single",
+        "meta": "SKINMETAL 3D Holographic Show",
         "listen_url": "",
         "watch_url": "https://youtu.be/WYTFHiKp82I",
-        "image": "assets/songs/live-in-s-o-paulo-6fe7f3.png"
+        "image": "assets/songs/live-in-s-o-paulo-6fe7f3.png",
+        "image_position": "center"
     },
     {
         "id": "pandoras-box",

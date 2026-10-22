@@ -73,6 +73,44 @@ function applyLinks(links) {
       a.style.display = 'none';
     }
   });
+
+  // Contact page email / WhatsApp
+  if (links.contact_email) {
+    document.querySelectorAll('[data-contact-email]').forEach((a) => {
+      a.href = 'mailto:' + links.contact_email;
+      a.textContent = links.contact_email;
+    });
+  }
+  if (links.contact_whatsapp_number) {
+    document.querySelectorAll('[data-contact-whatsapp]').forEach((a) => {
+      a.href = 'https://wa.me/' + links.contact_whatsapp_number;
+      if (links.contact_whatsapp_display) a.textContent = links.contact_whatsapp_display;
+    });
+  }
+}
+
+function applyAbout(about) {
+  if (!about) return;
+  document.querySelectorAll('[data-about-photo]').forEach((el) => {
+    if (about.photo) el.src = about.photo;
+    const pos = about.image_position === 'top' ? 'center top' : about.image_position === 'bottom' ? 'center bottom' : 'center center';
+    el.style.objectPosition = pos;
+  });
+}
+
+function applyMedia(media) {
+  if (!media) return;
+  document.querySelectorAll('[data-media-link]').forEach((a) => {
+    const kind = a.dataset.mediaLink;
+    const url = media[kind + '_url'];
+    if (url) {
+      a.href = url;
+      a.classList.remove('is-disabled');
+    } else {
+      a.removeAttribute('href');
+      a.classList.add('is-disabled');
+    }
+  });
 }
 
 function cardLinksHtml(listenUrl, watchUrl) {
@@ -287,6 +325,29 @@ function renderMembers(members, container) {
   revealNow(container);
 }
 
+function renderCharacters(characters, container) {
+  if (!container) return;
+  if (!characters.length) {
+    container.innerHTML = '<p class="empty-note" style="color:var(--dark-silver);">The characters will be revealed soon.</p>';
+    return;
+  }
+  container.innerHTML = characters.map((c) => {
+    const thumb = c.photo || youtubeThumbnail(c.link_url);
+    const linkHtml = c.link_url
+      ? `<div class="card-links" style="padding:0 18px 18px;"><a href="${escapeHtml(c.link_url)}" target="_blank" rel="noopener">${escapeHtml(c.link_label || 'Watch')}</a></div>`
+      : '';
+    return `
+    <div class="character-card">
+      <div class="portrait">${imgTag(thumb, c.name, c.image_position)}</div>
+      <h3>${escapeHtml(c.name)}</h3>
+      <div class="role">${escapeHtml(c.role || '')}</div>
+      ${linkHtml}
+    </div>
+  `;
+  }).join('');
+  revealNow(container);
+}
+
 async function fetchJson(url) {
   try {
     const res = await fetch(url, { cache: 'no-store' });
@@ -335,6 +396,19 @@ function initDynamicContent() {
   const membersContainer = document.querySelector('[data-members-grid]');
   if (membersContainer) {
     fetchJson('api/members.php').then((members) => renderMembers(members || [], membersContainer));
+  }
+
+  const charactersContainer = document.querySelector('[data-characters-grid]');
+  if (charactersContainer) {
+    fetchJson('api/characters.php').then((characters) => renderCharacters(characters || [], charactersContainer));
+  }
+
+  if (document.querySelector('[data-about-photo]')) {
+    fetchJson('api/about.php').then((about) => applyAbout(about));
+  }
+
+  if (document.querySelector('[data-media-link]')) {
+    fetchJson('api/media.php').then((media) => applyMedia(media));
   }
 
   fetchJson('api/release.php').then((release) => applyRelease(release));
