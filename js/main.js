@@ -40,6 +40,99 @@ function imgTag(src, alt, position) {
   return `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt || '')}" loading="lazy"${objectPositionStyle(position)}>`;
 }
 
+/* ---- Shopping cart (client-side, localStorage) ---- */
+const CART_KEY = 'skinmetal_cart';
+
+function getCart() {
+  try {
+    const raw = localStorage.getItem(CART_KEY);
+    const cart = raw ? JSON.parse(raw) : [];
+    return Array.isArray(cart) ? cart : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveCart(cart) {
+  try {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  } catch (e) {
+    /* storage unavailable (private mode, quota) — cart just won't persist */
+  }
+  updateCartBadge();
+}
+
+function addToCart(product, qty) {
+  qty = qty || 1;
+  const cart = getCart();
+  const existing = cart.find((item) => item.id === product.id);
+  if (existing) {
+    existing.qty += qty;
+  } else {
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price_amount: Number(product.price_amount) || 0,
+      currency: product.currency || 'USD',
+      weight_kg: Number(product.weight_kg) || 0,
+      image: product.image || '',
+      qty: qty,
+    });
+  }
+  saveCart(cart);
+}
+
+function setCartQty(id, qty) {
+  const cart = getCart();
+  const item = cart.find((i) => i.id === id);
+  if (!item) return;
+  if (qty <= 0) {
+    saveCart(cart.filter((i) => i.id !== id));
+  } else {
+    item.qty = qty;
+    saveCart(cart);
+  }
+}
+
+function removeFromCart(id) {
+  saveCart(getCart().filter((i) => i.id !== id));
+}
+
+function cartCount() {
+  return getCart().reduce((sum, i) => sum + i.qty, 0);
+}
+
+function cartWeightKg() {
+  return getCart().reduce((sum, i) => sum + i.weight_kg * i.qty, 0);
+}
+
+function updateCartBadge() {
+  const count = cartCount();
+  document.querySelectorAll('[data-cart-count]').forEach((el) => {
+    el.textContent = String(count);
+    el.classList.toggle('is-empty', count === 0);
+  });
+}
+
+function wireAddToCartButtons(container) {
+  (container || document).querySelectorAll('[data-add-to-cart]').forEach((btn) => {
+    if (btn.dataset.wired) return;
+    btn.dataset.wired = '1';
+    btn.addEventListener('click', () => {
+      const product = (window.PRODUCTS_CACHE || []).find((p) => p.id === btn.dataset.addToCart);
+      if (!product) return;
+      addToCart(product, 1);
+      const original = btn.textContent;
+      btn.textContent = 'Added!';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.disabled = false;
+      }, 1100);
+    });
+  });
+}
+
 const STREAM_LABELS = { spotify: 'Spotify', apple_music: 'Apple Music', youtube_music: 'YouTube Music', deezer: 'Deezer' };
 const SOCIAL_LABELS = { instagram: 'IG', youtube: 'YT', spotify: 'SP', tiktok: 'TT' };
 
@@ -181,14 +274,20 @@ function renderProducts(products, container) {
     container.innerHTML = '<p class="empty-note" style="color:var(--dark-silver);">No products listed yet. Check back soon.</p>';
     return;
   }
+  window.PRODUCTS_CACHE = products;
   container.innerHTML = products.map((p) => `
     <div class="card product-card" data-product data-category="${escapeHtml(p.category)}">
       <div class="card-media">${imgTag(p.image, p.name, p.image_position)}</div>
-      <div class="card-body"><h3>${escapeHtml(p.name)}</h3><p class="meta price">${escapeHtml(p.price)}</p></div>
+      <div class="card-body">
+        <h3>${escapeHtml(p.name)}</h3>
+        <p class="meta price">${escapeHtml(p.price)}</p>
+        <button type="button" class="btn btn-outline add-to-cart-btn" data-add-to-cart="${escapeHtml(p.id)}">Add to Cart</button>
+      </div>
     </div>
   `).join('');
   revealNow(container);
   wireFilterGroups();
+  wireAddToCartButtons(container);
 }
 
 function renderShows(shows, container, emptyEl) {
@@ -416,6 +515,207 @@ function initDynamicContent() {
   return linksPromise;
 }
 
+/* ---- Checkout ---- */
+const COUNTRIES = [
+  ['BR', 'Brazil'],
+  ['AR', 'Argentina'], ['UY', 'Uruguay'], ['PY', 'Paraguay'], ['CL', 'Chile'], ['BO', 'Bolivia'],
+  ['PE', 'Peru'], ['CO', 'Colombia'], ['VE', 'Venezuela'], ['EC', 'Ecuador'], ['GY', 'Guyana'], ['SR', 'Suriname'],
+  ['US', 'United States'], ['CA', 'Canada'], ['MX', 'Mexico'], ['GT', 'Guatemala'], ['BZ', 'Belize'],
+  ['SV', 'El Salvador'], ['HN', 'Honduras'], ['NI', 'Nicaragua'], ['CR', 'Costa Rica'], ['PA', 'Panama'],
+  ['CU', 'Cuba'], ['DO', 'Dominican Republic'], ['HT', 'Haiti'], ['JM', 'Jamaica'], ['TT', 'Trinidad and Tobago'],
+  ['PT', 'Portugal'], ['ES', 'Spain'], ['FR', 'France'], ['DE', 'Germany'], ['IT', 'Italy'], ['GB', 'United Kingdom'],
+  ['NL', 'Netherlands'], ['BE', 'Belgium'], ['IE', 'Ireland'], ['CH', 'Switzerland'], ['AT', 'Austria'],
+  ['SE', 'Sweden'], ['NO', 'Norway'], ['DK', 'Denmark'], ['FI', 'Finland'], ['PL', 'Poland'], ['GR', 'Greece'],
+  ['CZ', 'Czechia'], ['HU', 'Hungary'], ['RO', 'Romania'],
+  ['JP', 'Japan'], ['CN', 'China'], ['KR', 'South Korea'], ['IN', 'India'], ['AU', 'Australia'], ['NZ', 'New Zealand'],
+  ['SG', 'Singapore'], ['TH', 'Thailand'], ['ID', 'Indonesia'], ['PH', 'Philippines'], ['VN', 'Vietnam'],
+  ['MY', 'Malaysia'], ['AE', 'United Arab Emirates'], ['SA', 'Saudi Arabia'], ['IL', 'Israel'], ['TR', 'Turkey'],
+  ['XX', 'Other / Rest of World'],
+];
+
+/* Checkout currency follows the shipping destination: BRL for Brazil (paid via
+   Mercado Pago), USD everywhere else (paid via PayPal). Product price_amount
+   is treated as a plain number valid in either context — there is no live
+   currency conversion in this store. */
+function checkoutCurrencyForCountry(code) {
+  return code === 'BR' ? 'BRL' : 'USD';
+}
+
+function formatMoney(amount, currency) {
+  const symbol = currency === 'BRL' ? 'R$' : '$';
+  return symbol + Number(amount || 0).toFixed(2);
+}
+
+function renderCartItems(container, currency) {
+  if (!container) return;
+  const cart = getCart();
+  container.innerHTML = cart.map((item) => `
+    <div class="cart-row" data-cart-row="${escapeHtml(item.id)}">
+      <div class="cart-row-media">${imgTag(item.image, item.name, 'center')}</div>
+      <div class="cart-row-info">
+        <h4>${escapeHtml(item.name)}</h4>
+        <div class="cart-row-price">${formatMoney(item.price_amount, currency)} each</div>
+      </div>
+      <div class="cart-row-qty">
+        <button type="button" class="qty-btn" data-qty-step="-1" data-id="${escapeHtml(item.id)}" aria-label="Decrease quantity">&minus;</button>
+        <span>${item.qty}</span>
+        <button type="button" class="qty-btn" data-qty-step="1" data-id="${escapeHtml(item.id)}" aria-label="Increase quantity">+</button>
+      </div>
+      <div class="cart-row-total">${formatMoney(item.price_amount * item.qty, currency)}</div>
+      <button type="button" class="cart-row-remove" data-cart-remove="${escapeHtml(item.id)}" aria-label="Remove item">&times;</button>
+    </div>
+  `).join('');
+
+  container.querySelectorAll('[data-qty-step]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = getCart().find((i) => i.id === btn.dataset.id);
+      if (!item) return;
+      setCartQty(item.id, item.qty + parseInt(btn.dataset.qtyStep, 10));
+      refreshCheckoutPage();
+    });
+  });
+  container.querySelectorAll('[data-cart-remove]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      removeFromCart(btn.dataset.cartRemove);
+      refreshCheckoutPage();
+    });
+  });
+}
+
+let checkoutShippingQuote = null;
+
+async function updateShippingQuote() {
+  const countryEl = document.getElementById('co-country');
+  const shippingEl = document.querySelector('[data-shipping-cost]');
+  const country = countryEl ? countryEl.value : '';
+  checkoutShippingQuote = null;
+  if (!country) {
+    if (shippingEl) shippingEl.textContent = 'Enter your country';
+    updateCheckoutTotals();
+    return;
+  }
+  const weight = cartWeightKg();
+  if (weight <= 0) {
+    updateCheckoutTotals();
+    return;
+  }
+  if (shippingEl) shippingEl.textContent = 'Calculating…';
+  const quote = await fetchJson(`api/shipping-quote.php?country=${encodeURIComponent(country)}&weight_kg=${encodeURIComponent(weight)}`);
+  checkoutShippingQuote = quote;
+  if (shippingEl) {
+    shippingEl.textContent = quote ? `${formatMoney(quote.price, quote.currency)} (${quote.zone_name})` : 'Unable to calculate shipping';
+  }
+  updateCheckoutTotals();
+}
+
+function updateCheckoutTotals() {
+  const country = document.getElementById('co-country')?.value || '';
+  const currency = checkoutCurrencyForCountry(country);
+  const cart = getCart();
+  const subtotal = cart.reduce((sum, i) => sum + i.price_amount * i.qty, 0);
+  const shipping = checkoutShippingQuote ? checkoutShippingQuote.price : 0;
+  const subtotalEl = document.querySelector('[data-subtotal]');
+  const totalEl = document.querySelector('[data-order-total]');
+  if (subtotalEl) subtotalEl.textContent = formatMoney(subtotal, currency);
+  if (totalEl) {
+    totalEl.textContent = checkoutShippingQuote
+      ? formatMoney(subtotal + shipping, currency)
+      : formatMoney(subtotal, currency) + ' + shipping';
+  }
+}
+
+function refreshCheckoutPage() {
+  const root = document.querySelector('[data-checkout]');
+  if (!root) return;
+  const cart = getCart();
+  const emptyEl = root.querySelector('[data-cart-empty]');
+  const contentEl = root.querySelector('[data-checkout-content]');
+  if (!cart.length) {
+    if (emptyEl) emptyEl.style.display = '';
+    if (contentEl) contentEl.style.display = 'none';
+    return;
+  }
+  if (emptyEl) emptyEl.style.display = 'none';
+  if (contentEl) contentEl.style.display = '';
+  const currency = checkoutCurrencyForCountry(document.getElementById('co-country')?.value || '');
+  renderCartItems(root.querySelector('[data-cart-items]'), currency);
+  updateShippingQuote();
+}
+
+async function submitOrder(method) {
+  const form = document.getElementById('checkout-form');
+  const msgEl = document.querySelector('[data-checkout-message]');
+  if (!form || !form.reportValidity()) return;
+  const cart = getCart();
+  if (!cart.length) return;
+  const customer = Object.fromEntries(new FormData(form).entries());
+  document.querySelectorAll('[data-pay]').forEach((b) => (b.disabled = true));
+  if (msgEl) { msgEl.textContent = 'Placing your order…'; msgEl.style.color = 'var(--silver)'; }
+  try {
+    const res = await fetch('api/orders.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ customer, items: cart, payment_method: method }),
+    });
+    const result = await res.json();
+    if (result.ok && result.redirect_url) {
+      window.location.href = result.redirect_url;
+      return;
+    }
+    if (msgEl) {
+      msgEl.textContent = result.message || (result.ok ? 'Order placed!' : 'Something went wrong. Please try again.');
+      msgEl.style.color = result.ok ? '#C9A227' : '#e07a7a';
+    }
+    if (result.ok) {
+      saveCart([]);
+      refreshCheckoutPage();
+    }
+  } catch (e) {
+    if (msgEl) { msgEl.textContent = 'Could not place your order. Please try again later.'; msgEl.style.color = '#e07a7a'; }
+  } finally {
+    document.querySelectorAll('[data-pay]').forEach((b) => (b.disabled = false));
+  }
+}
+
+function initPaymentButtons() {
+  fetchJson('api/payment-status.php').then((status) => {
+    const mpBtn = document.querySelector('[data-pay="mercadopago"]');
+    const ppBtn = document.querySelector('[data-pay="paypal"]');
+    const mpNote = document.querySelector('[data-pay-note="mercadopago"]');
+    const ppNote = document.querySelector('[data-pay-note="paypal"]');
+    if (status && status.mercadopago) {
+      if (mpBtn) mpBtn.disabled = false;
+    } else if (mpNote) {
+      mpNote.textContent = 'Mercado Pago payments are being set up — check back soon.';
+    }
+    if (status && status.paypal) {
+      if (ppBtn) ppBtn.disabled = false;
+    } else if (ppNote) {
+      ppNote.textContent = 'PayPal payments are being set up — check back soon.';
+    }
+  });
+  const mpBtn = document.querySelector('[data-pay="mercadopago"]');
+  const ppBtn = document.querySelector('[data-pay="paypal"]');
+  if (mpBtn) mpBtn.addEventListener('click', () => submitOrder('mercadopago'));
+  if (ppBtn) ppBtn.addEventListener('click', () => submitOrder('paypal'));
+}
+
+function initCheckoutPage() {
+  const root = document.querySelector('[data-checkout]');
+  if (!root) return;
+  const countrySelect = document.getElementById('co-country');
+  if (countrySelect) {
+    countrySelect.innerHTML = '<option value="">Select your country</option>' +
+      COUNTRIES.map(([code, label]) => `<option value="${escapeHtml(code)}">${escapeHtml(label)}</option>`).join('');
+    countrySelect.addEventListener('change', () => {
+      renderCartItems(root.querySelector('[data-cart-items]'), checkoutCurrencyForCountry(countrySelect.value));
+      updateShippingQuote();
+    });
+  }
+  refreshCheckoutPage();
+  initPaymentButtons();
+}
+
 function initContactForm() {
   const form = document.getElementById('contact-form');
   if (!form) return;
@@ -447,6 +747,9 @@ function initContactForm() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  /* Cart badge reflects whatever is already stored, on every page */
+  updateCartBadge();
+
   /* Header scroll state */
   const header = document.querySelector('.site-header');
   const onScroll = () => {
@@ -554,6 +857,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* Real contact form submission */
   initContactForm();
+
+  /* Checkout page (cart, shipping quote, payment buttons) */
+  initCheckoutPage();
 
   /* Newsletter / other local-only forms: no backend, just confirm intent */
   document.querySelectorAll('form[data-local-form]').forEach((form) => {

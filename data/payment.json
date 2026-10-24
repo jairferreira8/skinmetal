@@ -1,0 +1,7 @@
+{
+  "mercadopago_access_token": "",
+  "mercadopago_public_key": "",
+  "paypal_client_id": "",
+  "paypal_secret": "",
+  "paypal_mode": "sandbox"
+}

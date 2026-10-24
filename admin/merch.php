@@ -45,11 +45,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             $position = (string)($_POST['image_position'] ?? 'center');
             if (!in_array($position, ['top', 'center', 'bottom'], true)) $position = 'center';
+            $weight = trim((string)($_POST['weight_kg'] ?? ''));
             if (!isset($flash) || $flash === '') {
                 $entry = [
                     'id' => $id !== '' ? $id : slugify($name),
                     'name' => $name,
                     'price' => $price,
+                    'price_amount' => $amount !== '' ? round((float)str_replace(',', '.', $amount), 2) : 0,
+                    'currency' => $currency,
+                    'weight_kg' => $weight !== '' ? round((float)str_replace(',', '.', $weight), 3) : 0.3,
                     'category' => $category,
                     'image' => $uploaded ?? $existingImage,
                     'image_position' => $position,
@@ -116,6 +120,10 @@ include __DIR__ . '/_header.php';
         <input type="number" step="0.01" min="0" name="price_amount" value="<?= h($editAmount) ?>" placeholder="34.00">
       </div>
       <div class="field">
+        <label>Weight (kg, for shipping calculation)</label>
+        <input type="number" step="0.001" min="0" name="weight_kg" value="<?= h((string)($editing['weight_kg'] ?? '')) ?>" placeholder="0.300">
+      </div>
+      <div class="field">
         <label>Category</label>
         <select name="category">
           <?php foreach ($categories as $key => $label): ?>
@@ -146,10 +154,10 @@ include __DIR__ . '/_header.php';
 </div>
 
 <table>
-  <thead><tr><th>Photo</th><th>Name</th><th>Category</th><th>Price</th><th></th></tr></thead>
+  <thead><tr><th>Photo</th><th>Name</th><th>Category</th><th>Price</th><th>Weight</th><th></th></tr></thead>
   <tbody>
     <?php if (!$products): ?>
-      <tr><td colspan="5" class="empty-state">No products yet.</td></tr>
+      <tr><td colspan="6" class="empty-state">No products yet.</td></tr>
     <?php endif; ?>
     <?php foreach ($products as $p): ?>
       <tr>
@@ -157,6 +165,7 @@ include __DIR__ . '/_header.php';
         <td><strong><?= h($p['name']) ?></strong></td>
         <td><?= h($categories[$p['category']] ?? $p['category']) ?></td>
         <td><?= h($p['price'] ?? '') ?></td>
+        <td><?= h((string)($p['weight_kg'] ?? '')) ?> kg</td>
         <td class="actions">
           <a href="?edit=<?= urlencode($p['id']) ?>" class="btn secondary">Edit</a>
           <form method="post" onsubmit="return confirm('Remove this product?');">

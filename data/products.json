@@ -3,6 +3,9 @@
         "id": "t-shirts",
         "name": "T-Shirts",
         "price": "$16.00",
+        "price_amount": 16,
+        "currency": "USD",
+        "weight_kg": 0.3,
         "category": "tshirts",
         "image": "assets/products/t-shirts-89937f.png"
     },
@@ -10,6 +13,9 @@
         "id": "3d-skinmetal-logo",
         "name": "3D SKINMETAL Logo",
         "price": "$13.00",
+        "price_amount": 13,
+        "currency": "USD",
+        "weight_kg": 0.3,
         "category": "limited",
         "image": "assets/products/3d-skinmetal-logo-05a51d.jpg"
     },
@@ -17,6 +23,9 @@
         "id": "skinmetal-band",
         "name": "SKINMETAL BAND",
         "price": "$3.00",
+        "price_amount": 3,
+        "currency": "USD",
+        "weight_kg": 0.1,
         "category": "posters",
         "image": "assets/products/skinmetal-band-abc85e.png"
     }

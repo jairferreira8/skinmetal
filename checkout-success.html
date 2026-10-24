@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Received | SKINMETAL</title>
+<meta name="description" content="Your SKINMETAL order has been received.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/logo-dragon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Metal+Mania&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css?v=20261015h">
+</head>
+<body data-page="checkout-success">
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="logo notranslate" translate="no">SKIN<span>METAL</span></a>
+    <nav class="nav-links">
+      <a href="index.html" data-nav="home">Home</a>
+      <a href="music.html" data-nav="music">Music</a>
+      <a href="videos.html" data-nav="videos">Videos</a>
+      <a href="universe.html" data-nav="universe">The Universe</a>
+      <a href="live.html" data-nav="live">Live</a>
+      <a href="media.html" data-nav="media">Media</a>
+      <a href="merch.html" data-nav="merch">Merch</a>
+      <a href="about.html" data-nav="about">About</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="checkout.html" class="cart-link" data-cart-link>Cart<span class="cart-badge is-empty" data-cart-count>0</span></a>
+      <a href="contact.html" class="btn btn-outline">Contact</a>
+      <a href="music.html" class="btn btn-primary">Listen Now</a>
+    </div>
+    <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Order Confirmed</span>
+    <h1>Thank You!</h1>
+    <p id="order-ref-text">Your SKINMETAL order has been received. We'll be in touch with any updates.</p>
+    <div class="btn-group" style="margin-top:20px;">
+      <a href="merch.html" class="btn btn-primary">Keep Browsing</a>
+      <a href="index.html" class="btn btn-outline">Back to Home</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo notranslate" translate="no">SKIN<span>METAL</span></a>
+        <p>The New Force of Brazilian Heavy Metal.</p>
+        <div class="footer-social">
+          <a href="#" data-social="youtube" target="_blank" rel="noopener" aria-label="YouTube">YT</a>
+          <a href="#" data-social="instagram" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+          <a href="#" data-social="spotify" target="_blank" rel="noopener" aria-label="Spotify">SP</a>
+          <a href="#" data-social="tiktok" target="_blank" rel="noopener" aria-label="TikTok">TT</a>
+        </div>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="music.html">Music</a></li>
+            <li><a href="videos.html">Videos</a></li>
+            <li><a href="universe.html">The Universe</a></li>
+            <li><a href="live.html">Live</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>SKINMETAL</h4>
+          <ul>
+            <li><a href="media.html">Media</a></li>
+            <li><a href="merch.html">Merch</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 SKINMETAL. All rights reserved.</span>
+      <span>Human Soul. Artificial Intelligence. Pure Metal.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js?v=20261015h"></script>
+<script>
+(function () {
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var order = params.get('order');
+    if (order) {
+      var el = document.getElementById('order-ref-text');
+      if (el) el.textContent = 'Your SKINMETAL order #' + order.slice(0, 8) + ' has been received. We\'ll be in touch with any updates.';
+    }
+    localStorage.removeItem('skinmetal_cart');
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>

@@ -7,6 +7,9 @@ $nav = [
     'music' => ['music.php', 'music', 'Music'],
     'videos' => ['videos.php', 'videos', 'Videos'],
     'merch' => ['merch.php', 'products', 'Products'],
+    'orders' => ['orders.php', 'orders', 'Orders'],
+    'shipping' => ['shipping.php', 'shipping', 'Shipping'],
+    'payment' => ['payment-settings.php', 'payment', 'Payment Settings'],
     'live' => ['live.php', 'shows', 'Shows'],
     'members' => ['members.php', 'members', 'Band Members'],
     'characters' => ['characters.php', 'characters', 'Characters'],
@@ -23,7 +26,7 @@ $nav = [
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title><?= h($page_title ?? 'Admin') ?> — SKINMETAL Admin</title>
-<link rel="stylesheet" href="admin.css?v=20261015g">
+<link rel="stylesheet" href="admin.css?v=20261015h">
 </head>
 <body>
 <div class="admin-shell">

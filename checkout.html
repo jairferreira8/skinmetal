@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | SKINMETAL</title>
+<meta name="description" content="Review your cart and complete your SKINMETAL order.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/logo-dragon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Metal+Mania&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css?v=20261015h">
+</head>
+<body data-page="checkout">
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="logo notranslate" translate="no">SKIN<span>METAL</span></a>
+    <nav class="nav-links">
+      <a href="index.html" data-nav="home">Home</a>
+      <a href="music.html" data-nav="music">Music</a>
+      <a href="videos.html" data-nav="videos">Videos</a>
+      <a href="universe.html" data-nav="universe">The Universe</a>
+      <a href="live.html" data-nav="live">Live</a>
+      <a href="media.html" data-nav="media">Media</a>
+      <a href="merch.html" data-nav="merch">Merch</a>
+      <a href="about.html" data-nav="about">About</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="checkout.html" class="cart-link" data-cart-link>Cart<span class="cart-badge is-empty" data-cart-count>0</span></a>
+      <a href="contact.html" class="btn btn-outline">Contact</a>
+      <a href="music.html" class="btn btn-primary">Listen Now</a>
+    </div>
+    <button class="menu-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Checkout</span>
+    <h1>Your Cart</h1>
+    <p>Review your items, enter your shipping details and complete your order.</p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container" data-checkout>
+
+    <p class="empty-state" data-cart-empty style="display:none;">Your cart is empty. <a href="merch.html">Browse the store</a>.</p>
+
+    <div data-checkout-content>
+      <div class="cart-table reveal" data-cart-items></div>
+
+      <div class="checkout-grid reveal">
+        <div class="checkout-form-col">
+          <h3>Shipping Information</h3>
+          <form id="checkout-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="co-name">Full Name</label>
+                <input type="text" id="co-name" name="name" required>
+              </div>
+              <div class="form-group">
+                <label for="co-email">Email</label>
+                <input type="email" id="co-email" name="email" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="co-address">Address</label>
+              <input type="text" id="co-address" name="address" required>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="co-city">City</label>
+                <input type="text" id="co-city" name="city" required>
+              </div>
+              <div class="form-group">
+                <label for="co-postal">Postal Code</label>
+                <input type="text" id="co-postal" name="postal_code" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="co-country">Country</label>
+              <select id="co-country" name="country" required></select>
+            </div>
+          </form>
+        </div>
+
+        <div class="checkout-summary-col">
+          <h3>Order Summary</h3>
+          <div class="checkout-totals">
+            <div class="row"><span>Subtotal</span><span data-subtotal>&mdash;</span></div>
+            <div class="row"><span>Shipping</span><span data-shipping-cost>Enter your country</span></div>
+            <div class="row total"><span>Total</span><span data-order-total>&mdash;</span></div>
+          </div>
+          <div class="payment-methods">
+            <button type="button" class="btn btn-primary" data-pay="mercadopago" disabled>Pay with Mercado Pago</button>
+            <p class="payment-note" data-pay-note="mercadopago"></p>
+            <button type="button" class="btn btn-outline" data-pay="paypal" disabled>Pay with PayPal</button>
+            <p class="payment-note" data-pay-note="paypal"></p>
+          </div>
+          <p class="form-note" data-checkout-message></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="logo notranslate" translate="no">SKIN<span>METAL</span></a>
+        <p>The New Force of Brazilian Heavy Metal.</p>
+        <div class="footer-social">
+          <a href="#" data-social="youtube" target="_blank" rel="noopener" aria-label="YouTube">YT</a>
+          <a href="#" data-social="instagram" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+          <a href="#" data-social="spotify" target="_blank" rel="noopener" aria-label="Spotify">SP</a>
+          <a href="#" data-social="tiktok" target="_blank" rel="noopener" aria-label="TikTok">TT</a>
+        </div>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="music.html">Music</a></li>
+            <li><a href="videos.html">Videos</a></li>
+            <li><a href="universe.html">The Universe</a></li>
+            <li><a href="live.html">Live</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>SKINMETAL</h4>
+          <ul>
+            <li><a href="media.html">Media</a></li>
+            <li><a href="merch.html">Merch</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 SKINMETAL. All rights reserved.</span>
+      <span>Human Soul. Artificial Intelligence. Pure Metal.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js?v=20261015h"></script>
+</body>
+</html>

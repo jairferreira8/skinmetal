@@ -126,3 +126,65 @@ function save_uploaded_file(string $field, string $subdir, string $baseName): ?a
     }
     return ['url' => 'assets/' . $subdir . '/' . $filename, 'name' => $file['name']];
 }
+
+/**
+ * Fixed country (ISO 3166-1 alpha-2) -> shipping zone id mapping. Zone prices
+ * and names live in data/shipping.json (admin-editable); this list is static.
+ * Any country not listed here falls back to "rest-of-world". "BR" is handled
+ * separately as domestic, not an international zone.
+ */
+const COUNTRY_ZONE_MAP = [
+    'AR' => 'south-america', 'UY' => 'south-america', 'PY' => 'south-america', 'CL' => 'south-america',
+    'BO' => 'south-america', 'PE' => 'south-america', 'CO' => 'south-america', 'VE' => 'south-america',
+    'EC' => 'south-america', 'GY' => 'south-america', 'SR' => 'south-america',
+    'US' => 'north-america', 'CA' => 'north-america', 'MX' => 'north-america',
+    'GT' => 'north-america', 'BZ' => 'north-america', 'SV' => 'north-america', 'HN' => 'north-america',
+    'NI' => 'north-america', 'CR' => 'north-america', 'PA' => 'north-america', 'CU' => 'north-america',
+    'DO' => 'north-america', 'HT' => 'north-america', 'JM' => 'north-america', 'TT' => 'north-america',
+    'PT' => 'europe', 'ES' => 'europe', 'FR' => 'europe', 'DE' => 'europe', 'IT' => 'europe',
+    'GB' => 'europe', 'NL' => 'europe', 'BE' => 'europe', 'IE' => 'europe', 'CH' => 'europe',
+    'AT' => 'europe', 'SE' => 'europe', 'NO' => 'europe', 'DK' => 'europe', 'FI' => 'europe',
+    'PL' => 'europe', 'GR' => 'europe', 'CZ' => 'europe', 'HU' => 'europe', 'RO' => 'europe',
+    'JP' => 'asia-oceania', 'CN' => 'asia-oceania', 'KR' => 'asia-oceania', 'IN' => 'asia-oceania',
+    'AU' => 'asia-oceania', 'NZ' => 'asia-oceania', 'SG' => 'asia-oceania', 'TH' => 'asia-oceania',
+    'ID' => 'asia-oceania', 'PH' => 'asia-oceania', 'VN' => 'asia-oceania', 'MY' => 'asia-oceania',
+    'AE' => 'asia-oceania', 'SA' => 'asia-oceania', 'IL' => 'asia-oceania', 'TR' => 'asia-oceania',
+];
+
+function country_zone_id(string $countryCode): string {
+    $code = strtoupper(trim($countryCode));
+    if ($code === 'BR') return 'domestic';
+    return COUNTRY_ZONE_MAP[$code] ?? 'rest-of-world';
+}
+
+/**
+ * Compute shipping cost for a given country and total cart weight.
+ * Returns ['zone' => id, 'zone_name' => string, 'price' => float, 'currency' => string].
+ */
+function calculate_shipping(string $countryCode, float $totalWeightKg): array {
+    $shipping = read_json('shipping');
+    $zoneId = country_zone_id($countryCode);
+
+    if ($zoneId === 'domestic') {
+        $tiers = $shipping['domestic_tiers'] ?? [];
+        foreach ($tiers as $tier) {
+            if ($totalWeightKg <= (float)$tier['max_weight_kg']) {
+                return ['zone' => 'domestic', 'zone_name' => 'Brazil', 'price' => (float)$tier['price'], 'currency' => $shipping['domestic_currency'] ?? 'BRL'];
+            }
+        }
+        $last = end($tiers);
+        return ['zone' => 'domestic', 'zone_name' => 'Brazil', 'price' => $last ? (float)$last['price'] : 0, 'currency' => $shipping['domestic_currency'] ?? 'BRL'];
+    }
+
+    foreach ($shipping['international_zones'] ?? [] as $zone) {
+        if ($zone['id'] === $zoneId) {
+            return ['zone' => $zoneId, 'zone_name' => $zone['name'], 'price' => (float)$zone['price'], 'currency' => $shipping['international_currency'] ?? 'USD'];
+        }
+    }
+    foreach ($shipping['international_zones'] ?? [] as $zone) {
+        if ($zone['id'] === 'rest-of-world') {
+            return ['zone' => 'rest-of-world', 'zone_name' => $zone['name'], 'price' => (float)$zone['price'], 'currency' => $shipping['international_currency'] ?? 'USD'];
+        }
+    }
+    return ['zone' => 'rest-of-world', 'zone_name' => 'Rest of World', 'price' => 0, 'currency' => $shipping['international_currency'] ?? 'USD'];
+}

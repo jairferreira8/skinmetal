@@ -1,0 +1,18 @@
+{
+  "domestic_currency": "BRL",
+  "domestic_tiers": [
+    {"max_weight_kg": 0.5, "price": 15},
+    {"max_weight_kg": 1, "price": 22},
+    {"max_weight_kg": 2, "price": 32},
+    {"max_weight_kg": 5, "price": 48},
+    {"max_weight_kg": 10, "price": 70}
+  ],
+  "international_currency": "USD",
+  "international_zones": [
+    {"id": "south-america", "name": "South America", "price": 25},
+    {"id": "north-america", "name": "North America", "price": 35},
+    {"id": "europe", "name": "Europe", "price": 40},
+    {"id": "asia-oceania", "name": "Asia & Oceania", "price": 45},
+    {"id": "rest-of-world", "name": "Rest of World", "price": 50}
+  ]
+}
