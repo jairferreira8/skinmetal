@@ -7,16 +7,6 @@ require_login();
 $products = read_json('products');
 $flash = '';
 $categories = ['tshirts' => 'T-Shirts', 'hoodies' => 'Hoodies', 'posters' => 'Posters', 'albums' => 'Albums', 'limited' => 'Limited Editions'];
-$currencySymbols = ['USD' => '$', 'BRL' => 'R$'];
-
-function parse_price_for_edit(string $price, array $symbols): array {
-    foreach ($symbols as $code => $symbol) {
-        if (str_starts_with($price, $symbol)) {
-            return [$code, trim(substr($price, strlen($symbol)))];
-        }
-    }
-    return ['USD', $price];
-}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
@@ -24,10 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'save') {
         $id = trim((string)($_POST['id'] ?? ''));
         $name = trim((string)($_POST['name'] ?? ''));
-        $currency = (string)($_POST['currency'] ?? 'USD');
-        if (!isset($currencySymbols[$currency])) $currency = 'USD';
-        $amount = trim((string)($_POST['price_amount'] ?? ''));
-        $price = $amount !== '' ? $currencySymbols[$currency] . number_format((float)str_replace(',', '.', $amount), 2) : '';
+        $usdAmount = trim((string)($_POST['price_usd'] ?? ''));
+        $brlAmount = trim((string)($_POST['price_brl'] ?? ''));
+        $priceUsd = $usdAmount !== '' ? round((float)str_replace(',', '.', $usdAmount), 2) : 0;
+        $priceBrl = $brlAmount !== '' ? round((float)str_replace(',', '.', $brlAmount), 2) : 0;
         $category = trim((string)($_POST['category'] ?? 'tshirts'));
 
         if ($name === '') {
@@ -50,9 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $entry = [
                     'id' => $id !== '' ? $id : slugify($name),
                     'name' => $name,
-                    'price' => $price,
-                    'price_amount' => $amount !== '' ? round((float)str_replace(',', '.', $amount), 2) : 0,
-                    'currency' => $currency,
+                    'price_usd' => $priceUsd,
+                    'price_brl' => $priceBrl,
                     'weight_kg' => $weight !== '' ? round((float)str_replace(',', '.', $weight), 3) : 0.3,
                     'category' => $category,
                     'image' => $uploaded ?? $existingImage,
@@ -85,8 +74,6 @@ if (isset($_GET['edit'])) {
         if ($p['id'] === $_GET['edit']) { $editing = $p; break; }
     }
 }
-[$editCurrency, $editAmount] = parse_price_for_edit($editing['price'] ?? '', $currencySymbols);
-
 $page_title = 'Products';
 $active = 'merch';
 include __DIR__ . '/_header.php';
@@ -109,15 +96,12 @@ include __DIR__ . '/_header.php';
         <input type="text" name="name" value="<?= h($editing['name'] ?? '') ?>" required>
       </div>
       <div class="field">
-        <label>Currency</label>
-        <select name="currency">
-          <option value="USD" <?= $editCurrency === 'USD' ? 'selected' : '' ?>>$ USD</option>
-          <option value="BRL" <?= $editCurrency === 'BRL' ? 'selected' : '' ?>>R$ BRL</option>
-        </select>
+        <label>Price (USD)</label>
+        <input type="number" step="0.01" min="0" name="price_usd" value="<?= h((string)($editing['price_usd'] ?? '')) ?>" placeholder="16.00">
       </div>
       <div class="field">
-        <label>Price</label>
-        <input type="number" step="0.01" min="0" name="price_amount" value="<?= h($editAmount) ?>" placeholder="34.00">
+        <label>Price (BRL)</label>
+        <input type="number" step="0.01" min="0" name="price_brl" value="<?= h((string)($editing['price_brl'] ?? '')) ?>" placeholder="80.00">
       </div>
       <div class="field">
         <label>Weight (kg, for shipping calculation)</label>
@@ -154,17 +138,18 @@ include __DIR__ . '/_header.php';
 </div>
 
 <table>
-  <thead><tr><th>Photo</th><th>Name</th><th>Category</th><th>Price</th><th>Weight</th><th></th></tr></thead>
+  <thead><tr><th>Photo</th><th>Name</th><th>Category</th><th>Price (USD)</th><th>Price (BRL)</th><th>Weight</th><th></th></tr></thead>
   <tbody>
     <?php if (!$products): ?>
-      <tr><td colspan="6" class="empty-state">No products yet.</td></tr>
+      <tr><td colspan="7" class="empty-state">No products yet.</td></tr>
     <?php endif; ?>
     <?php foreach ($products as $p): ?>
       <tr>
         <td><?php if (!empty($p['image'])): ?><img src="../<?= h($p['image']) ?>" alt="" style="width:46px; height:46px; object-fit:cover; border-radius:4px;"><?php else: ?><span style="color:var(--muted);">—</span><?php endif; ?></td>
         <td><strong><?= h($p['name']) ?></strong></td>
         <td><?= h($categories[$p['category']] ?? $p['category']) ?></td>
-        <td><?= h($p['price'] ?? '') ?></td>
+        <td>$<?= h(number_format((float)($p['price_usd'] ?? 0), 2)) ?></td>
+        <td>R$<?= h(number_format((float)($p['price_brl'] ?? 0), 2)) ?></td>
         <td><?= h((string)($p['weight_kg'] ?? '')) ?> kg</td>
         <td class="actions">
           <a href="?edit=<?= urlencode($p['id']) ?>" class="btn secondary">Edit</a>

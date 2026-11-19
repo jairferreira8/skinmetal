@@ -73,7 +73,7 @@ include __DIR__ . '/_header.php';
           <?= h($symbol . number_format((float)($totals['total'] ?? 0), 2)) ?><br>
           <span style="color:var(--muted); font-size:0.78rem;">incl. <?= h($symbol . number_format((float)($totals['shipping'] ?? 0), 2)) ?> shipping (<?= h($o['shipping']['zone_name'] ?? '') ?>)</span>
         </td>
-        <td><?= h(ucfirst($o['payment']['method'] ?? '')) ?></td>
+        <td><?= h(['mercadopago' => 'Mercado Pago', 'whatsapp' => 'WhatsApp'][$o['payment']['method'] ?? ''] ?? ucfirst($o['payment']['method'] ?? '')) ?></td>
         <td class="actions">
           <form method="post">
             <input type="hidden" name="action" value="update">

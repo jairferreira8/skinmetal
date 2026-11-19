@@ -72,8 +72,8 @@ function addToCart(product, qty) {
     cart.push({
       id: product.id,
       name: product.name,
-      price_amount: Number(product.price_amount) || 0,
-      currency: product.currency || 'USD',
+      price_usd: Number(product.price_usd) || 0,
+      price_brl: Number(product.price_brl) || 0,
       weight_kg: Number(product.weight_kg) || 0,
       image: product.image || '',
       qty: qty,
@@ -280,7 +280,7 @@ function renderProducts(products, container) {
       <div class="card-media">${imgTag(p.image, p.name, p.image_position)}</div>
       <div class="card-body">
         <h3>${escapeHtml(p.name)}</h3>
-        <p class="meta price">${escapeHtml(p.price)}</p>
+        <p class="meta price">${formatMoney(p.price_usd, 'USD')} <span class="price-sep">/</span> ${formatMoney(p.price_brl, 'BRL')}</p>
         <button type="button" class="btn btn-outline add-to-cart-btn" data-add-to-cart="${escapeHtml(p.id)}">Add to Cart</button>
       </div>
     </div>
@@ -533,10 +533,11 @@ const COUNTRIES = [
   ['XX', 'Other / Rest of World'],
 ];
 
-/* Checkout currency follows the shipping destination: BRL for Brazil (paid via
-   Mercado Pago), USD everywhere else (paid via PayPal). Product price_amount
-   is treated as a plain number valid in either context — there is no live
-   currency conversion in this store. */
+/* Checkout currency follows the shipping destination: BRL for Brazil (paid
+   via Mercado Pago), USD everywhere else (no automated payment yet —
+   international orders are handed off to WhatsApp to arrange payment
+   directly). There is no live currency conversion in this store: each
+   product carries its own price_usd and price_brl, set by the admin. */
 function checkoutCurrencyForCountry(code) {
   return code === 'BR' ? 'BRL' : 'USD';
 }
@@ -544,6 +545,10 @@ function checkoutCurrencyForCountry(code) {
 function formatMoney(amount, currency) {
   const symbol = currency === 'BRL' ? 'R$' : '$';
   return symbol + Number(amount || 0).toFixed(2);
+}
+
+function itemPrice(item, currency) {
+  return currency === 'BRL' ? Number(item.price_brl) || 0 : Number(item.price_usd) || 0;
 }
 
 function renderCartItems(container, currency) {
@@ -554,14 +559,14 @@ function renderCartItems(container, currency) {
       <div class="cart-row-media">${imgTag(item.image, item.name, 'center')}</div>
       <div class="cart-row-info">
         <h4>${escapeHtml(item.name)}</h4>
-        <div class="cart-row-price">${formatMoney(item.price_amount, currency)} each</div>
+        <div class="cart-row-price">${formatMoney(itemPrice(item, currency), currency)} each</div>
       </div>
       <div class="cart-row-qty">
         <button type="button" class="qty-btn" data-qty-step="-1" data-id="${escapeHtml(item.id)}" aria-label="Decrease quantity">&minus;</button>
         <span>${item.qty}</span>
         <button type="button" class="qty-btn" data-qty-step="1" data-id="${escapeHtml(item.id)}" aria-label="Increase quantity">+</button>
       </div>
-      <div class="cart-row-total">${formatMoney(item.price_amount * item.qty, currency)}</div>
+      <div class="cart-row-total">${formatMoney(itemPrice(item, currency) * item.qty, currency)}</div>
       <button type="button" class="cart-row-remove" data-cart-remove="${escapeHtml(item.id)}" aria-label="Remove item">&times;</button>
     </div>
   `).join('');
@@ -612,7 +617,7 @@ function updateCheckoutTotals() {
   const country = document.getElementById('co-country')?.value || '';
   const currency = checkoutCurrencyForCountry(country);
   const cart = getCart();
-  const subtotal = cart.reduce((sum, i) => sum + i.price_amount * i.qty, 0);
+  const subtotal = cart.reduce((sum, i) => sum + itemPrice(i, currency) * i.qty, 0);
   const shipping = checkoutShippingQuote ? checkoutShippingQuote.price : 0;
   const subtotalEl = document.querySelector('[data-subtotal]');
   const totalEl = document.querySelector('[data-order-total]');
@@ -677,27 +682,41 @@ async function submitOrder(method) {
   }
 }
 
+/* Domestic (Brazil) orders pay with Mercado Pago; international orders are
+   handed off to WhatsApp to arrange payment directly — only one of the two
+   payment blocks is shown, based on the selected country. */
+function updatePaymentSection() {
+  const country = document.getElementById('co-country')?.value || '';
+  const mpWrap = document.querySelector('[data-pay-wrap="mercadopago"]');
+  const waWrap = document.querySelector('[data-pay-wrap="whatsapp"]');
+  if (!country) {
+    if (mpWrap) mpWrap.style.display = 'none';
+    if (waWrap) waWrap.style.display = 'none';
+    return;
+  }
+  if (country === 'BR') {
+    if (mpWrap) mpWrap.style.display = '';
+    if (waWrap) waWrap.style.display = 'none';
+  } else {
+    if (mpWrap) mpWrap.style.display = 'none';
+    if (waWrap) waWrap.style.display = '';
+  }
+}
+
 function initPaymentButtons() {
   fetchJson('api/payment-status.php').then((status) => {
     const mpBtn = document.querySelector('[data-pay="mercadopago"]');
-    const ppBtn = document.querySelector('[data-pay="paypal"]');
     const mpNote = document.querySelector('[data-pay-note="mercadopago"]');
-    const ppNote = document.querySelector('[data-pay-note="paypal"]');
     if (status && status.mercadopago) {
       if (mpBtn) mpBtn.disabled = false;
     } else if (mpNote) {
       mpNote.textContent = 'Mercado Pago payments are being set up — check back soon.';
     }
-    if (status && status.paypal) {
-      if (ppBtn) ppBtn.disabled = false;
-    } else if (ppNote) {
-      ppNote.textContent = 'PayPal payments are being set up — check back soon.';
-    }
   });
   const mpBtn = document.querySelector('[data-pay="mercadopago"]');
-  const ppBtn = document.querySelector('[data-pay="paypal"]');
+  const waBtn = document.querySelector('[data-pay="whatsapp"]');
   if (mpBtn) mpBtn.addEventListener('click', () => submitOrder('mercadopago'));
-  if (ppBtn) ppBtn.addEventListener('click', () => submitOrder('paypal'));
+  if (waBtn) waBtn.addEventListener('click', () => submitOrder('whatsapp'));
 }
 
 function initCheckoutPage() {
@@ -710,9 +729,11 @@ function initCheckoutPage() {
     countrySelect.addEventListener('change', () => {
       renderCartItems(root.querySelector('[data-cart-items]'), checkoutCurrencyForCountry(countrySelect.value));
       updateShippingQuote();
+      updatePaymentSection();
     });
   }
   refreshCheckoutPage();
+  updatePaymentSection();
   initPaymentButtons();
 }
 

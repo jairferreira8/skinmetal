@@ -797,6 +797,7 @@ section { position: relative; z-index: 1; padding: 110px 0; }
 .product-card .card-media { aspect-ratio: 1; }
 .product-card .add-to-cart-btn { margin-top: 12px; width: 100%; text-align: center; }
 .price { color: var(--fire-orange); font-weight: 700; }
+.price .price-sep { color: var(--dark-silver); font-weight: 400; margin: 0 2px; }
 
 /* ---- About ---- */
 .about-grid {

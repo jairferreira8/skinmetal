@@ -19,6 +19,10 @@ if (!is_array($body)) {
     exit;
 }
 
+function symbolFor(string $currency): string {
+    return $currency === 'BRL' ? 'R$' : '$';
+}
+
 $customer = is_array($body['customer'] ?? null) ? $body['customer'] : [];
 $requestedItems = is_array($body['items'] ?? null) ? $body['items'] : [];
 $paymentMethod = (string)($body['payment_method'] ?? '');
@@ -40,9 +44,20 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo json_encode(['ok' => false, 'message' => 'Please enter a valid email address.']);
     exit;
 }
-if (!in_array($paymentMethod, ['mercadopago', 'paypal'], true)) {
+if (!in_array($paymentMethod, ['mercadopago', 'whatsapp'], true)) {
     http_response_code(400);
     echo json_encode(['ok' => false, 'message' => 'Please choose a payment method.']);
+    exit;
+}
+// Mercado Pago is domestic-only; international orders go through WhatsApp.
+if ($paymentMethod === 'mercadopago' && $country !== 'BR') {
+    http_response_code(400);
+    echo json_encode(['ok' => false, 'message' => 'Mercado Pago is only available for orders shipping within Brazil.']);
+    exit;
+}
+if ($paymentMethod === 'whatsapp' && $country === 'BR') {
+    http_response_code(400);
+    echo json_encode(['ok' => false, 'message' => 'Please use Mercado Pago for orders shipping within Brazil.']);
     exit;
 }
 if (!$requestedItems) {
@@ -59,6 +74,10 @@ foreach ($catalog as $p) {
     $catalogById[$p['id']] = $p;
 }
 
+// Domestic orders are priced in BRL (Mercado Pago), international in USD
+// (handed off to WhatsApp) — each product carries both prices.
+$priceField = $country === 'BR' ? 'price_brl' : 'price_usd';
+
 $orderItems = [];
 $totalWeight = 0.0;
 foreach ($requestedItems as $reqItem) {
@@ -66,7 +85,7 @@ foreach ($requestedItems as $reqItem) {
     $qty = max(1, (int)($reqItem['qty'] ?? 1));
     if (!isset($catalogById[$id])) continue;
     $product = $catalogById[$id];
-    $priceAmount = (float)($product['price_amount'] ?? 0);
+    $priceAmount = (float)($product[$priceField] ?? 0);
     $weight = (float)($product['weight_kg'] ?? 0.3);
     $orderItems[] = [
         'id' => $id,
@@ -108,14 +127,27 @@ $orders = read_json('orders');
 $orders[] = $order;
 write_json('orders', $orders);
 
-// Create a real payment redirect once credentials are configured in Payment
-// Settings; otherwise fall back to a confirmation message — the order is
-// recorded either way and the band can follow up to collect payment.
+// Domestic orders get a real Mercado Pago payment redirect once credentials
+// are configured in Payment Settings; otherwise fall back to a confirmation
+// message — the order is recorded either way. International orders always
+// hand off to WhatsApp with the order details pre-filled.
 $redirectUrl = null;
 if ($paymentMethod === 'mercadopago') {
     $redirectUrl = mercadopago_create_preference($order);
-} elseif ($paymentMethod === 'paypal') {
-    $redirectUrl = paypal_create_order($order);
+} elseif ($paymentMethod === 'whatsapp') {
+    $links = read_json('links');
+    $waNumber = preg_replace('/\D+/', '', (string)($links['contact_whatsapp_number'] ?? ''));
+    if ($waNumber !== '') {
+        $lines = [];
+        $lines[] = 'Hi! I just placed an international order on skinmetal.band (#' . substr($order['id'], 0, 8) . ').';
+        foreach ($orderItems as $it) {
+            $lines[] = '- ' . $it['qty'] . 'x ' . $it['name'] . ' (' . $symbolFor($currency) . number_format($it['price_amount'], 2) . ' each)';
+        }
+        $lines[] = 'Shipping (' . $shipping['zone_name'] . '): ' . $symbolFor($currency) . number_format($shipping['price'], 2);
+        $lines[] = 'Total: ' . $symbolFor($currency) . number_format($total, 2);
+        $lines[] = 'Ship to: ' . $name . ', ' . $address . ', ' . $city . ', ' . $country . ' ' . $postalCode;
+        $redirectUrl = 'https://wa.me/' . $waNumber . '?text=' . rawurlencode(implode("\n", $lines));
+    }
 }
 
 if ($redirectUrl) {
