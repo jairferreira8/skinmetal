@@ -6,24 +6,107 @@
         "price_brl": 80,
         "weight_kg": 0.3,
         "category": "tshirts",
-        "image": "assets/products/t-shirts-89937f.png"
+        "image": "assets/products/t-shirts-89937f.png",
+        "image_position": "center"
     },
     {
         "id": "3d-skinmetal-logo",
-        "name": "3D SKINMETAL Logo",
-        "price_usd": 13,
-        "price_brl": 65,
+        "name": "3D SKINMETAL Logo (10 X 15 cm)",
+        "price_usd": 12,
+        "price_brl": 60,
         "weight_kg": 0.3,
         "category": "limited",
-        "image": "assets/products/3d-skinmetal-logo-05a51d.jpg"
+        "image": "assets/products/3d-skinmetal-logo-05a51d.jpg",
+        "image_position": "center"
     },
     {
         "id": "skinmetal-band",
-        "name": "SKINMETAL BAND",
+        "name": "SKINMETAL BAND Mini Poster (15 X 10 cm)",
         "price_usd": 3,
         "price_brl": 15,
-        "weight_kg": 0.1,
+        "weight_kg": 0.3,
         "category": "posters",
-        "image": "assets/products/skinmetal-band-abc85e.png"
+        "image": "assets/products/skinmetal-band-abc85e.png",
+        "image_position": "center"
+    },
+    {
+        "id": "witches-in-the-cauldron",
+        "name": "Witches in the Cauldron - 3D  (10 X10 cm)",
+        "price_usd": 10,
+        "price_brl": 50,
+        "weight_kg": 0.3,
+        "category": "limited",
+        "image": "assets/products/witches-in-the-cauldron-8dd1ea.jpg",
+        "image_position": "center"
+    },
+    {
+        "id": "sisterhood-of-witches",
+        "name": "Sisterhood of Witches - 3D (10 X10 cm)",
+        "price_usd": 10,
+        "price_brl": 50,
+        "weight_kg": 0.3,
+        "category": "limited",
+        "image": "assets/products/sisterhood-of-witches-a1fa8a.jpg",
+        "image_position": "center"
+    },
+    {
+        "id": "generations-of-the-dragon-family-house-of-the-dragon-29-7-x-42-cm",
+        "name": "Generations of the Dragon Family: House of the Dragon - Poster (29.7 x 42 cm)",
+        "price_usd": 22,
+        "price_brl": 110,
+        "weight_kg": 0.3,
+        "category": "limited",
+        "image": "assets/products/generations-of-the-dragon-family-house-of-the-dragon-29-7-x-42-cm-77a7ea.jpg",
+        "image_position": "center"
+    },
+    {
+        "id": "house-of-the-dragon-1st-generation",
+        "name": "House of the Dragon: 1st Generation (29.7 x 42 cm)",
+        "price_usd": 11,
+        "price_brl": 55,
+        "weight_kg": 0.3,
+        "category": "posters",
+        "image": "assets/products/house-of-the-dragon-1st-generation-21c941.jpg",
+        "image_position": "center"
+    },
+    {
+        "id": "house-of-the-dragon-2nd-generation",
+        "name": "House of the Dragon: 2nd Generation (29.7 x 42 cm)",
+        "price_usd": 11,
+        "price_brl": 55,
+        "weight_kg": 0.3,
+        "category": "posters",
+        "image": "assets/products/house-of-the-dragon-2nd-generation-ab4e76.jpg",
+        "image_position": "center"
+    },
+    {
+        "id": "house-of-the-dragon-3rd-generation-generation",
+        "name": "House of the Dragon: 3rd Generation (29.7 x 42 cm)",
+        "price_usd": 11,
+        "price_brl": 55,
+        "weight_kg": 0.3,
+        "category": "posters",
+        "image": "assets/products/house-of-the-dragon-3rd-generation-generation-c557b6.jpg",
+        "image_position": "center"
+    },
+    {
+        "id": "house-of-the-dragon-4th-generation",
+        "name": "House of the Dragon: 4th Generation (29.7 x 42 cm)",
+        "price_usd": 11,
+        "price_brl": 55,
+        "weight_kg": 0.3,
+        "category": "posters",
+        "image": "assets/products/house-of-the-dragon-4th-generation-ffc357.jpg",
+        "image_position": "center"
+    },
+    {
+        "id": "house-of-the-dragon-5th-generation",
+        "name": "House of the Dragon: 5th Generation (29.7 x 42 cm)",
+        "price_usd": 11,
+        "price_brl": 55,
+        "weight_kg": 0.3,
+        "category": "posters",
+        "image": "assets/products/house-of-the-dragon-5th-generation-2a4d96.jpg",
+        "image_position": "center"
     }
 ]

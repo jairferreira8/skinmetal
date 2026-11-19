@@ -1,8 +1,137 @@
 [
-  {"id": "karan-the-viking", "name": "Karan the Viking", "role": "Warrior of the North", "photo": "", "image_position": "center", "link_label": "Watch the Saga", "link_url": "https://www.youtube.com/watch?v=L-4HTMfaPVU"},
-  {"id": "sigrid", "name": "Sigrid", "role": "Keeper of Fire", "photo": "", "image_position": "center", "link_label": "", "link_url": ""},
-  {"id": "the-dragon", "name": "The Dragon", "role": "Guardian of the Realm", "photo": "", "image_position": "center", "link_label": "", "link_url": ""},
-  {"id": "the-raven", "name": "The Raven", "role": "Messenger of Shadows", "photo": "", "image_position": "center", "link_label": "", "link_url": ""},
-  {"id": "the-fairy-queen", "name": "The Fairy Queen", "role": "Ruler of the Hidden Realm", "photo": "", "image_position": "center", "link_label": "", "link_url": ""},
-  {"id": "the-soul-thief", "name": "The Soul Thief", "role": "Wanderer of Whitechapel", "photo": "", "image_position": "center", "link_label": "", "link_url": ""}
+    {
+        "id": "karan-the-viking",
+        "name": "Karan the Viking",
+        "role": "Warrior of the North",
+        "photo": "assets/characters/karan-the-viking-37213d.jpg",
+        "image_position": "center",
+        "link_label": "Watch the Saga",
+        "link_url": "https://www.youtube.com/watch?v=L-4HTMfaPVU"
+    },
+    {
+        "id": "sigrid",
+        "name": "Sigrid",
+        "role": "Keeper of Fire",
+        "photo": "assets/characters/sigrid-4057e4.jpg",
+        "image_position": "center",
+        "link_label": "",
+        "link_url": ""
+    },
+    {
+        "id": "the-dragon",
+        "name": "The Dragon",
+        "role": "Guardian of the Realm",
+        "photo": "assets/characters/the-dragon-de3f5f.jpg",
+        "image_position": "center",
+        "link_label": "",
+        "link_url": ""
+    },
+    {
+        "id": "the-raven",
+        "name": "The Raven",
+        "role": "Messenger of Shadows",
+        "photo": "assets/characters/the-raven-5bb745.jpg",
+        "image_position": "center",
+        "link_label": "",
+        "link_url": ""
+    },
+    {
+        "id": "the-fairy-queen",
+        "name": "The Fairy Queen",
+        "role": "Ruler of the Hidden Realm",
+        "photo": "assets/characters/the-fairy-queen-bd647a.jpg",
+        "image_position": "center",
+        "link_label": "",
+        "link_url": ""
+    },
+    {
+        "id": "the-soul-thief",
+        "name": "The Soul Thief",
+        "role": "Guardian of Souls",
+        "photo": "assets/characters/the-soul-thief-179ece.jpg",
+        "image_position": "center",
+        "link_label": "",
+        "link_url": ""
+    },
+    {
+        "id": "gorok",
+        "name": "Gorok",
+        "role": "God of the Nordic Seas",
+        "photo": "assets/characters/gorok-4449f9.jpg",
+        "image_position": "center",
+        "link_label": "",
+        "link_url": ""
+    },
+    {
+        "id": "j-rn-j-rnv-r",
+        "name": "Járn Járnvíðr",
+        "role": "Father of Karan",
+        "photo": "assets/characters/j-rn-j-rnv-r-7da717.jpg",
+        "image_position": "center",
+        "link_label": "",
+        "link_url": ""
+    },
+    {
+        "id": "verath-dau-ama-r",
+        "name": "Verath Dauðamaðr",
+        "role": "Karan’s Mortal Enemy Warrior",
+        "photo": "assets/characters/verath-dau-ama-r-7d2063.jpg",
+        "image_position": "center",
+        "link_label": "",
+        "link_url": ""
+    },
+    {
+        "id": "map-of-middle-earth",
+        "name": "Map of Middle-earth",
+        "role": "Middle-earth",
+        "photo": "assets/characters/map-of-middle-earth-31754f.jpg",
+        "image_position": "center",
+        "link_label": "",
+        "link_url": ""
+    },
+    {
+        "id": "hill-of-the-runic-stones-a-sacred-site",
+        "name": "Hill of the Runic Stones, a sacred site",
+        "role": "Karan the Viking Universe",
+        "photo": "assets/characters/hill-of-the-runic-stones-a-sacred-site-79ee65.jpg",
+        "image_position": "center",
+        "link_label": "",
+        "link_url": ""
+    },
+    {
+        "id": "ragnafang",
+        "name": "Ragnafang",
+        "role": "Karan’s Deadly Weapon, Sent by the Gods",
+        "photo": "assets/characters/ragnafang-4dc0ff.jpg",
+        "image_position": "center",
+        "link_label": "",
+        "link_url": ""
+    },
+    {
+        "id": "freya",
+        "name": "Freya",
+        "role": "Norse goddess, friend of Karan",
+        "photo": "assets/characters/freya-80b96b.jpg",
+        "image_position": "center",
+        "link_label": "",
+        "link_url": ""
+    },
+    {
+        "id": "odin",
+        "name": "Odin",
+        "role": "Supreme God - Father of All",
+        "photo": "assets/characters/odin-9a882f.jpg",
+        "image_position": "center",
+        "link_label": "",
+        "link_url": ""
+    },
+    {
+        "id": "ulfheim",
+        "name": "Ulfheim",
+        "role": "The village of Karan",
+        "photo": "assets/characters/ulfheim-e6555e.jpg",
+        "image_position": "center",
+        "link_label": "",
+        "link_url": ""
+    }
 ]

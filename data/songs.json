@@ -152,5 +152,115 @@
         "listen_url": "https://open.spotify.com/intl-pt/track/5U5lNPTfpnekJxkPR2FkWX?si=86c4367bcd2b482f",
         "watch_url": "https://youtube.com/shorts/xYdUsdudw1A",
         "image": "assets/songs/skinmetal-dcec68.jpg"
+    },
+    {
+        "id": "kamikaze-the-divine-wind",
+        "title": "Kamikaze The Divine Wind",
+        "type": "Single",
+        "meta": "Single",
+        "listen_url": "https://youtu.be/fHYhdLOAG-U",
+        "watch_url": "videos.html",
+        "image": "assets/songs/kamikaze-the-divine-wind-075462.png",
+        "image_position": "center"
+    },
+    {
+        "id": "queen-of-the-sacred-groves",
+        "title": "Queen of the Sacred Groves",
+        "type": "Single",
+        "meta": "Single",
+        "listen_url": "https://youtu.be/UGQnkEE6RgI",
+        "watch_url": "videos.html",
+        "image": "assets/songs/queen-of-the-sacred-groves-10536b.png",
+        "image_position": "center"
+    },
+    {
+        "id": "skinmetal-rise-of-atlantis",
+        "title": "SKINMETAL Rise of Atlantis",
+        "type": "Single",
+        "meta": "Rise of Atlantis of the Album SKINMETAL FOREVER",
+        "listen_url": "https://youtu.be/HR9zlsuEFHw",
+        "watch_url": "videos.html",
+        "image": "",
+        "image_position": "center"
+    },
+    {
+        "id": "skinmetal-bucaneros",
+        "title": "SKINMETAL Bucaneros",
+        "type": "Single",
+        "meta": "YOU'VE NEVER HEARD ANYTHING LIKE IT!",
+        "listen_url": "https://youtu.be/UVrrgseJt1Q",
+        "watch_url": "videos.html",
+        "image": "",
+        "image_position": "center"
+    },
+    {
+        "id": "skinmetal-krampus-the-winter-devourer",
+        "title": "SKINMETAL - Krampus the Winter Devourer",
+        "type": "Single",
+        "meta": "LISTEN NOW and discover the future of metal",
+        "listen_url": "https://youtu.be/wibAVWK6BFc",
+        "watch_url": "videos.html",
+        "image": "",
+        "image_position": "center"
+    },
+    {
+        "id": "skinmetal-the-guardian-of-midnight",
+        "title": "SKINMETAL -The Guardian of Midnight",
+        "type": "Single",
+        "meta": "A powerful, innovative sound with lyrics that connect technology, rebellion, and the soul of metal.",
+        "listen_url": "https://youtu.be/DjGJyQy-AWA",
+        "watch_url": "videos.html",
+        "image": "",
+        "image_position": "center"
+    },
+    {
+        "id": "skinmetal-sons-of-thunder",
+        "title": "SKINMETAL - Sons of Thunder",
+        "type": "Single",
+        "meta": "Have you listened yet? Then comment on what you thought and share it with your friends!",
+        "listen_url": "https://youtu.be/0E701aGPq28",
+        "watch_url": "videos.html",
+        "image": "",
+        "image_position": "center"
+    },
+    {
+        "id": "skinmetal-i-m-sorry-captain",
+        "title": "SKINMETAL - I'm Sorry Captain",
+        "type": "Single",
+        "meta": "YOU'VE NEVER HEARD ANYTHING LIKE IT!",
+        "listen_url": "https://youtu.be/ruxP4lSW7u8",
+        "watch_url": "videos.html",
+        "image": "",
+        "image_position": "center"
+    },
+    {
+        "id": "skinmetal-moonfall-race-of-titans",
+        "title": "SKINMETAL - Moonfall Race of Titans",
+        "type": "Single",
+        "meta": "LISTEN NOW and discover the future of metal",
+        "listen_url": "https://youtu.be/jq7kizOMHuQ",
+        "watch_url": "videos.html",
+        "image": "",
+        "image_position": "center"
+    },
+    {
+        "id": "skinmetal-the-top-6-metal-songs",
+        "title": "SKINMETAL THE TOP 6 METAL SONGS!",
+        "type": "Album",
+        "meta": "EP",
+        "listen_url": "https://youtu.be/ZB5BwXrv9Hc",
+        "watch_url": "videos.html",
+        "image": "",
+        "image_position": "center"
+    },
+    {
+        "id": "skinmetal-old-songs",
+        "title": "SKINMETAL OLD SONGS",
+        "type": "Album",
+        "meta": "EP",
+        "listen_url": "https://open.spotify.com/intl-pt/album/2Fg2CeLfRoCTDv5tZ3Mg08?si=k8Kq_HO5Tc-Eivg14Gbl8g",
+        "watch_url": "videos.html",
+        "image": "assets/songs/skinmetal-old-songs-a4cd81.jpg",
+        "image_position": "center"
     }
 ]

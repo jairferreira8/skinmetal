@@ -67,7 +67,7 @@
         "title": "Metal Tales: Shorts Channel",
         "meta": "All Metal Tales Shorts",
         "category": "metal-tales",
-        "watch_url": "https://www.youtube.com/@METALTALES-shorts"
+        "watch_url": "https://youtu.be/rJeiktabjN0"
     },
     {
         "id": "building-tecno-metal",
@@ -78,9 +78,121 @@
     },
     {
         "id": "making-the-new-album",
-        "title": "Making the New Album",
+        "title": "SKINMETAL: The release of SKINMETAL's new album is coming up!",
         "meta": "Behind the Scenes",
         "category": "bts",
-        "watch_url": "https://youtube.com/shorts/ZgVH4DzI1PE"
+        "watch_url": "https://youtube.com/shorts/7fjCOAiFKmI"
+    },
+    {
+        "id": "headless-ride",
+        "title": "Headless Ride",
+        "meta": "SKINMETAL unleashes “HEADLESS RIDE”, a new Heavy Metal single from the dark world of DARK SIDE.",
+        "category": "music-video",
+        "watch_url": "https://youtu.be/5p98Mtz1vR4"
+    },
+    {
+        "id": "skinmetal-releases-their-new-video-the-fairy-queen-are-now-available-in-major-music-stores",
+        "title": "SKINMETAL releases their new video THE FAIRY QUEEN are now available in major music stores....",
+        "meta": "Fairy Queen Launch",
+        "category": "bts",
+        "watch_url": "https://youtu.be/AVXGVyrc9LY"
+    },
+    {
+        "id": "skinmetal-and-the-2026-world-cup",
+        "title": "SKINMETAL and the 2026 World Cup!",
+        "meta": "SKINMETAL SUPPORTS THE BRAZILIAN NATIONAL TEAM IN THE 2026 WORLD CUP",
+        "category": "bts",
+        "watch_url": "https://youtu.be/rI3jM-4xppo"
+    },
+    {
+        "id": "preview-skinmetal-karan-the-viking",
+        "title": "Preview — SKINMETAL: \"Karan the Viking\"",
+        "meta": "The legend has arrived. The warrior was forged in metal.",
+        "category": "bts",
+        "watch_url": "https://youtu.be/jmTXR6v1_4g"
+    },
+    {
+        "id": "skinmetal-preview-video-out-of-control",
+        "title": "SKINMETAL Preview video Out Of Control",
+        "meta": "Song: Out of Control from the album SKINMETAL FOREVER",
+        "category": "bts",
+        "watch_url": "https://youtu.be/qM4YnHic23U"
+    },
+    {
+        "id": "skinmetal-valhalla-warriors",
+        "title": "SKINMETAL Valhalla Warriors",
+        "meta": "Song: Valhalla Warriors from SKINMETAL (OLD SONGS)",
+        "category": "bts",
+        "watch_url": "https://youtu.be/yIJHcJznTwc"
+    },
+    {
+        "id": "skinmetal-old-songs",
+        "title": "SKINMETAL Old Songs",
+        "meta": "Every success story has a beginning.....SKINMETAL OLD SONGS...!",
+        "category": "bts",
+        "watch_url": "https://youtu.be/BydxVMe0FGw"
+    },
+    {
+        "id": "skinmetalpreview-of-the-single-headless-ride-3d-holographic-show",
+        "title": "SKINMETALPreview of the single Headless Ride (3D Holographic Show)",
+        "meta": "YOU'VE NEVER HEARD ANYTHING LIKE IT!",
+        "category": "bts",
+        "watch_url": "https://youtu.be/QFFZRT2aljc"
+    },
+    {
+        "id": "skinmetal-forever",
+        "title": "SKINMETAL_FOREVER",
+        "meta": "Masks of the Damned from the Album SKINMETAL FOREVER",
+        "category": "bts",
+        "watch_url": "https://youtu.be/aN8W_nB4ji4"
+    },
+    {
+        "id": "skinmetal-lady-of-the-dragons",
+        "title": "SKINMETAL_Lady of the Dragons",
+        "meta": "YOU'VE NEVER HEARD ANYTHING LIKE IT",
+        "category": "bts",
+        "watch_url": "https://youtu.be/tZ1NT1nM-bI"
+    },
+    {
+        "id": "skinmetal-pandora-s-box",
+        "title": "SKINMETAL_Pandora's Box",
+        "meta": "Pandora's Box of new Album SKINMETAL FOREVER",
+        "category": "bts",
+        "watch_url": "https://youtu.be/oIXo6OyCjhA"
+    },
+    {
+        "id": "skinmetal-the-heavy-metal-revolution-continues-forever",
+        "title": "SKINMETAL_The Heavy Metal revolution continues FOREVER!",
+        "meta": "LISTEN NOW and discover the future of metal",
+        "category": "bts",
+        "watch_url": "https://youtu.be/LocnQlP7y4g"
+    },
+    {
+        "id": "skinmetal-kamikaze-the-divine-wind",
+        "title": "SKINMETAL_Kamikaze The Divine Wind",
+        "meta": "New Video from SKINMETAL: Kamikaze The Divine Wind",
+        "category": "bts",
+        "watch_url": "https://youtu.be/yvvsaqTWrik"
+    },
+    {
+        "id": "skinmetal-from-brazil-to-the-world",
+        "title": "SKINMETAL: From Brazil to the World!",
+        "meta": "SKINMETAL is the first Brazilian heavy metal band created by humans and artificial intelligence.",
+        "category": "bts",
+        "watch_url": "https://youtu.be/Gzic44c57IU"
+    },
+    {
+        "id": "skinmetal-headless-ride-the-headless-horseman-returns",
+        "title": "SKINMETAL – Headless Ride ⚔️ The Headless Horseman Returns!",
+        "meta": "**HEADLESS RIDE** is the new Heavy Metal single by **SKINMETAL**, from the album **DARK SIDE**",
+        "category": "bts",
+        "watch_url": "https://youtube.com/shorts/auCjHRssSPw"
+    },
+    {
+        "id": "my",
+        "title": "MY NEIGHBOR IS A WITCH & MY TEACHER IS A BITCH! 🤘 | SKINMETAL",
+        "meta": "Welcome to the school from your darkest nightmares!",
+        "category": "bts",
+        "watch_url": "https://www.youtube.com/shorts/qXPJVG-96Us"
     }
 ]
